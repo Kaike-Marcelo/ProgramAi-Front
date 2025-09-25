@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: ["winter"];
+}
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
