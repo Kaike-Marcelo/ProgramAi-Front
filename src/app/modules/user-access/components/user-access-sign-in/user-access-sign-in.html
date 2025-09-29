@@ -1,0 +1,26 @@
+<app-user-access-container>
+  <div class="bg-base-100">
+    <form [formGroup]="signInForm" class="mt-8 flex flex-col">
+      <app-input formControlName="email" 
+                 label="E-mail" 
+                 placeholder="exemplo@email.com"
+                 [errorMessage]="getErrorMessage('email')" />
+
+      <app-input formControlName="password" 
+                 label="Senha" 
+                 placeholder="Digite sua senha"
+                 [errorMessage]="getErrorMessage('password')" 
+                 [type]="hide() ? 'password' : 'text'" />
+
+      <button class="btn btn-ghost font-normal ml-auto mb-5" [routerLink]="'/password-reset'">Esqueci minha senha</button>
+    </form>
+
+    <!-- <div class="my-2">
+      <app-primary-button
+        [textButton]="'Entrar na conta'"
+        [r_loading]="userAccessActions.loading"
+        (click)="login()" />
+    </div>
+    <app-second-button [textButton]="'Não tenho conta ainda'" [routerLink]="'/sign-up'" /> -->
+  </div>
+</app-user-access-container>
