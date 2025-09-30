@@ -3,7 +3,7 @@
               [requiredLabel]="requiredLabel" />
 
   <input [type]="type === 'password' && !showPassword ? 'password' : type"
-         class="input validator w-full disabled:text-base-content disabled:border-base-300 disabled:bg-base-300 disabled:cursor-not-allowed"
+         class="input bg-accent text-base-100 border-0 validator w-full disabled:text-base-300 disabled:border-1 disabled:border-accent disabled:bg-primary disabled:cursor-not-allowed"
          [placeholder]="placeholder" 
          [value]="value" 
          (input)="onInput($event)" 
@@ -13,7 +13,7 @@
 
   <p class="block text-xs mt-0 min-h-[1rem]">
     @if (showError && errorMessage) {
-    <span class="text-red-600">{{ errorMessage }}</span>
+    <span class="text-red-300">{{ errorMessage }}</span>
     } @else {
     <span class="invisible">placeholder</span>
     }

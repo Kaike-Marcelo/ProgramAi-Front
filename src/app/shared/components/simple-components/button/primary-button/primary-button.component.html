@@ -1,0 +1,11 @@
+<button class="btn btn-secondary font-normal w-full min-w-[64px]" [disabled]="r_loading()">
+  @if(r_loading()){
+    <span class="loading loading-spinner loading-md"></span> Aguarde...
+  } @else {
+
+    @if (icon) {
+      <i class="{{icon}}"></i>
+    }
+    {{ textButton }}
+  }
+</button>

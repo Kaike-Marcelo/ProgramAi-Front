@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   imports: [],
   template: `
   @if (label) {
-      <label class="text-sm font-medium">
+      <label class="text-base-100 text-sm font-medium font-normal">
         {{ label }} @if (requiredLabel) { <span>*</span>}
       </label>
   }`,
