@@ -3,7 +3,7 @@ import { Component, Input, Signal } from '@angular/core';
 
 @Component({
   selector: 'app-primary-button',
-  imports: [CommonModule,],
+  imports: [CommonModule],
   templateUrl: './primary-button.component.html'
 })
 export class PrimaryButtonComponent {

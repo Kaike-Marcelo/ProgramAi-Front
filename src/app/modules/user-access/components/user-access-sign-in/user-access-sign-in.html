@@ -1,41 +1,33 @@
 <app-user-access-container>
   <div>
     <form [formGroup]="signInForm" class="mt-8 flex flex-col">
-      <app-input formControlName="email" 
-                 label="E-mail" 
-                 placeholder="exemplo@email.com"
-                 [errorMessage]="getErrorMessage('email')" />
+      <app-input formControlName="email" label="E-mail" placeholder="exemplo@email.com"
+        [errorMessage]="getErrorMessage('email')" />
 
-      <app-input formControlName="password" 
-                 label="Senha" 
-                 placeholder="Digite sua senha"
-                 [errorMessage]="getErrorMessage('password')" 
-                 [type]="hide() ? 'password' : 'text'" />
+      <app-input formControlName="password" label="Senha" placeholder="Digite sua senha"
+        [errorMessage]="getErrorMessage('password')" [type]="hide() ? 'password' : 'text'" />
 
       <div class="w-full max-w-md mx-auto">
         <div class="flex items-center justify-between gap-4">
-          <label class="inline-flex gap-2 text-sm text-base-300">
+          <label class="label text-base-300 text-sm cursor-pointer">
             <input type="checkbox"
-                   class="h-4 w-4 text-neutral border-0 rounded focus:ring-1 focus:ring-secondary" />
-            <span>Manter conectado</span>
+              class="checkbox border-neutral bg-transparent checked:border-secondary checked:bg-secondary checked:text-secondary" />
+            Manter Conectado
           </label>
-          
-          <button class="btn btn-ghost hover:bg-primary text-secondary font-normal ml-auto" 
-                  [routerLink]="'/password-reset'">Esqueci a senha</button>
-        </div>      
-      </div>  
+
+          <button class="btn btn-ghost hover:bg-primary text-secondary font-normal ml-auto"
+            [routerLink]="'/password-reset'">Esqueci a senha</button>
+        </div>
+      </div>
     </form>
 
     <div class="my-2 mt-7">
-      <app-primary-button [textButton]="'Entrar'"
-                          [r_loading]="userAccessActions" />
+      <app-primary-button [textButton]="'Entrar'" [r_loading]="userAccessActions" />
     </div>
 
-    <div class="my-6 h-px bg-accent"></div>
-    <app-external-login />
-    <div class="my-6 h-px bg-accent"></div>
-
-    <app-second-button [textButton]="'Ainda não sou aluno'" 
-                       [routerLink]="'/sign-up'" />
+    <app-second-button [textButton]="'Ainda não sou aluno'" [routerLink]="'/sign-up'" />
   </div>
+
+  <div class="divider divider-secondary text-secondary">ou</div>
+  <app-external-login />
 </app-user-access-container>
