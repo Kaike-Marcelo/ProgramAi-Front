@@ -1,5 +1,5 @@
 <app-user-access-container>
-  <div class="bg-base-100">
+  <div>
     <form [formGroup]="signInForm" class="mt-8 flex flex-col">
       <app-input formControlName="email" 
                  label="E-mail" 
@@ -12,15 +12,30 @@
                  [errorMessage]="getErrorMessage('password')" 
                  [type]="hide() ? 'password' : 'text'" />
 
-      <button class="btn btn-ghost font-normal ml-auto mb-5" [routerLink]="'/password-reset'">Esqueci minha senha</button>
+      <div class="w-full max-w-md mx-auto">
+        <div class="flex items-center justify-between gap-4">
+          <label class="inline-flex gap-2 text-sm text-base-300">
+            <input type="checkbox"
+                   class="h-4 w-4 text-neutral border-0 rounded focus:ring-1 focus:ring-secondary" />
+            <span>Manter conectado</span>
+          </label>
+          
+          <button class="btn btn-ghost hover:bg-primary text-secondary font-normal ml-auto" 
+                  [routerLink]="'/password-reset'">Esqueci a senha</button>
+        </div>      
+      </div>  
     </form>
 
-    <!-- <div class="my-2">
-      <app-primary-button
-        [textButton]="'Entrar na conta'"
-        [r_loading]="userAccessActions.loading"
-        (click)="login()" />
+    <div class="my-2 mt-7">
+      <app-primary-button [textButton]="'Entrar'"
+                          [r_loading]="userAccessActions" />
     </div>
-    <app-second-button [textButton]="'Não tenho conta ainda'" [routerLink]="'/sign-up'" /> -->
+
+    <div class="my-6 h-px bg-accent"></div>
+    <app-external-login />
+    <div class="my-6 h-px bg-accent"></div>
+
+    <app-second-button [textButton]="'Ainda não sou aluno'" 
+                       [routerLink]="'/sign-up'" />
   </div>
 </app-user-access-container>

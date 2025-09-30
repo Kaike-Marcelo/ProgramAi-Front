@@ -1,5 +1,7 @@
 import { ChangeDetectorRef, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { DeviceService } from '../../../../shared/services/device.service';
+import { ThemeService } from '../../../../shared/services/theme.service';
+import { DEFAULT_THEME } from '../../../../core/consts/themes';
 
 @Component({
   selector: 'app-user-access-container',
@@ -8,7 +10,7 @@ import { DeviceService } from '../../../../shared/services/device.service';
 })
 export class UserAccessContainer implements OnInit, OnDestroy {
   protected deviceService = inject(DeviceService)
-  //#themeService = inject(ThemeService);
+  #themeService = inject(ThemeService);
 
   private cdr = inject(ChangeDetectorRef);
 
@@ -38,7 +40,7 @@ export class UserAccessContainer implements OnInit, OnDestroy {
       this.cdr.detectChanges();
     }, 8000);
 
-    //this.#themeService.setTheme(DEFAULT_THEME);
+    this.#themeService.setTheme(DEFAULT_THEME);
   }
 
   ngOnDestroy() {
