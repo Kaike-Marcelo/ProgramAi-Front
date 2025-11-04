@@ -27,9 +27,6 @@ export class FormValidation {
     if (control.hasError('pattern')) {
       return `O campo está fora do padrão esperado`;
     }
-    if (control.hasError('cnpjLength')) {
-      return 'CNPJ deve conter 14 dígitos numéricos';
-    }
     if (control.hasError('phoneLength')) {
       return 'Telefone deve conter 10 ou 11 dígitos numéricos';
     }
