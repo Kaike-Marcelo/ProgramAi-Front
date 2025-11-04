@@ -20,4 +20,19 @@ export class UserAccessFormsFactory {
         },
             { validators: PasswordValidators.passwordMatch('password', 'confirmPassword') });
     }
+
+    static buildRequestCodeForm(fb: FormBuilder): FormGroup {
+        return fb.group({
+            email: ['', [Validators.required, Validators.email]]
+        })
+    }
+
+    static buildPasswordResetForm(fb: FormBuilder): FormGroup {
+        return fb.group({
+            code: ['', [Validators.required]],
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            confirmPassword: ['', [Validators.required]]
+        },
+            { validators: PasswordValidators.passwordMatch('password', 'confirmPassword') });
+    }
 }
