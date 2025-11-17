@@ -5,6 +5,11 @@ import { UserAccessPasswordReset } from './modules/user-access/components/user-a
 
 export const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'sign-in',
+        pathMatch: 'full',
+    },
+    {
         path: 'sign-in',
         component: UserAccessSignIn,
     },
