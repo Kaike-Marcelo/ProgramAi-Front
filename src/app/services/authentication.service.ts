@@ -11,7 +11,7 @@ import { mapSimpleApiResponse } from '../core/operators/map-simple-api-response.
 import { MappedResponse } from '../core/interfaces/mapped-response.interface';
 import { environment } from '../../environments/environment';
 import { RequestSignUp } from '../core/dtos/request/request-sign-up.model';
-import { SignUpResponseDto } from '../core/dtos/response/sign-up-response-dto.model';
+import { UserResponseDto } from '../core/dtos/response/user-response-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +27,9 @@ export class AuthenticationService {
     );
   }
 
-  SignUp(requestSignUp: RequestSignUp): Observable<MappedResponse<SignInResponseDto>> {
-    return this.#http.post<ApiResponseDto<SignInResponseDto>>(`${environment.apiUrl}/user`, requestSignUp).pipe(
-      mapSimpleApiResponse()
+  SignUp(requestSignUp: RequestSignUp): Observable<MappedResponse<UserResponseDto>> {
+    return this.#http.post<ApiResponseDto<UserResponseDto>>(`${environment.apiUrl}/user`, requestSignUp).pipe(
+      mapSimpleApiResponse(),
     )
   }
 

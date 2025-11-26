@@ -1,7 +1,7 @@
 import { ProgressResponseDto } from "./progress-response-dto.model";
 import { TokenResponseDto } from "./token-response-dto.model";
 
-export interface SignInResponseDto {
+export interface UserResponseDto {
     firstName: string;
     lastName: string;
     email: string;

@@ -1,6 +1,7 @@
 import { OperatorFunction, map, catchError, throwError } from "rxjs";
 import { ApiResponseDto } from "../dtos/response/api-response-dto.model";
 import { MappedResponse } from "../interfaces/mapped-response.interface";
+import { mapErrorApiResponse } from "./map-error-api-response.operator";
 
 /**
  * Para casos onde você precisa transformar o `data` da resposta antes de usá-lo.
@@ -20,6 +21,6 @@ export function mapCustomApiResponse<T, R>(
           message: response.message,
         };
       }),
-      catchError(err => throwError(() => err))
+      catchError(err => mapErrorApiResponse(err))
     );
 }

@@ -53,7 +53,8 @@ export class UserAccessSignUp {
           this.#router.navigate(['/learner/home']);
         },
         error: (err) => {
-          this.#snackBarService.showError(err.message);
+          this.#snackBarService.showError(err[0]);
+          this.r_loading.set(false);
         },
         complete: () => {
           this.r_loading.set(false);

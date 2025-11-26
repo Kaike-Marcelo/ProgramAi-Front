@@ -10,6 +10,7 @@ import { SecondButtonComponent } from "../../../../shared/components/simple-comp
 import { ExternalLoginComponent } from "../external-login/external-login.component";
 import { RequestSignIn } from '../../../../core/dtos/request/request-sign-in.model';
 import { AuthenticationService } from '../../../../services/authentication.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackbarService } from '../../../../shared/services/snackbar.service';
 
 @Component({
@@ -34,19 +35,23 @@ export class UserAccessSignIn {
 
   signIn() {
     if (!this.#formValidationService.validateFormAndShowErrors(this.signInForm, this.appInputs)) return;
-
     const request: RequestSignIn = this.signInForm.value;
+
+    this.userAccessActions.set(true);
     this.authService.signIn(request)
       .pipe()
       .subscribe({
-        next: ({ data, message }) => {
-          this.#snackBarService.showSuccess(message);
-          this.authService.setTokensLocalStorage(data);
+        next: (res) => {
+          this.#snackBarService.showSuccess(res.message);
+          this.authService.setTokensLocalStorage(res.data);
           this.#router.navigate(['/learner/home'])
         },
-        error: err => {
-          const msg = err?.error?.message || 'Erro desconhecido';
-          this.#snackBarService.showError(msg);
+        error: (err: string[]) => {
+          this.#snackBarService.showError(err[0]);
+          this.userAccessActions.set(false);
+        },
+        complete: () => {
+            this.userAccessActions.set(false);
         }
       })
   }

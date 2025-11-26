@@ -11,7 +11,7 @@ import { AuthenticationService } from '../../../../services/authentication.servi
 })
 export class LearnerMenu {
   @Output() menuItemSelected = new EventEmitter<MenuItem>();
-  
+
   #authenticationService = inject(AuthenticationService);
 
   menuItems = LEARNER_MENU;
@@ -26,6 +26,7 @@ export class LearnerMenu {
 
     if (drawerCheckbox) {
       drawerCheckbox.checked = !drawerCheckbox.checked;
+      this.showSecondLogo = !this.showSecondLogo
     }
   }
 
