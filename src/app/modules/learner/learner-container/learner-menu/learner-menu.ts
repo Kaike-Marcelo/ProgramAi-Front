@@ -26,7 +26,6 @@ export class LearnerMenu {
 
     if (drawerCheckbox) {
       drawerCheckbox.checked = !drawerCheckbox.checked;
-      this.showSecondLogo = !this.showSecondLogo
     }
   }
 
