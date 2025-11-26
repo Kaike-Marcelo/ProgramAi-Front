@@ -10,13 +10,13 @@
                     label="Sobrenome"
                     [requiredLabel]="true"
                     placeholder="Digite seu sobrenome"
-                    [errorMessage]="getErrorMessage('firstName')" />
+                    [errorMessage]="getErrorMessage('lastName')" />
 
         <app-input formControlName="email"
                     label="Melhor E-mail"
                     [requiredLabel]="true"
                     placeholder="exemplo@email.com"
-                    [errorMessage]="getErrorMessage('firstName')" />
+                    [errorMessage]="getErrorMessage('email')" />
         
         <app-input formControlName="password" 
                     label="Senha" 
@@ -33,7 +33,7 @@
                     [errorMessage]="getErrorMessage('confirmPassword')" />
 
         <div class="flex grid gap-2 my-8">
-            <app-primary-button [textButton]="'Cadastrar'" [r_loading]="hide"/>
+            <app-primary-button [textButton]="'Cadastrar'" [r_loading]="r_loading"/>
             <app-second-button routerLink="/sign-in"[textButton]="'Já tenho conta'"/>
         </div>
     </form>

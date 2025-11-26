@@ -42,7 +42,7 @@ export class UserAccessSignIn {
         next: ({ data, message }) => {
           this.#snackBarService.showSuccess(message);
           this.authService.setTokensLocalStorage(data);
-          this.#router.navigate(['/password-reset'])
+          this.#router.navigate(['/learner/home'])
         },
         error: err => {
           const msg = err?.error?.message || 'Erro desconhecido';

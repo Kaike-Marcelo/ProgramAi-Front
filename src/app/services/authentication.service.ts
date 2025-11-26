@@ -10,6 +10,8 @@ import { User } from '../core/models/user.model';
 import { mapSimpleApiResponse } from '../core/operators/map-simple-api-response.operator';
 import { MappedResponse } from '../core/interfaces/mapped-response.interface';
 import { environment } from '../../environments/environment';
+import { RequestSignUp } from '../core/dtos/request/request-sign-up.model';
+import { SignUpResponseDto } from '../core/dtos/response/sign-up-response-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +27,12 @@ export class AuthenticationService {
     );
   }
 
+  SignUp(requestSignUp: RequestSignUp): Observable<MappedResponse<SignInResponseDto>> {
+    return this.#http.post<ApiResponseDto<SignInResponseDto>>(`${environment.apiUrl}/user`, requestSignUp).pipe(
+      mapSimpleApiResponse()
+    )
+  }
+
   logout() {
     this.#localStorageService.clearTokensLocalStorage();
     this.#localStorageService.clearUserLocalStorage();
@@ -35,6 +43,10 @@ export class AuthenticationService {
     return this.#localStorageService.getUserFromLocalStorage();
   }
 
+  getAccessToken(): string | null {
+    return this.#localStorageService.getAccessToken();
+  }
+
   setTokensLocalStorage(response: SignInResponseDto) {
     this.#localStorageService.saveAccessToken(response.tokens.accessToken);
     this.#localStorageService.saveUserLocalStorage(response);
@@ -42,5 +54,12 @@ export class AuthenticationService {
 
   updateUserLocalStorage(user: User) {
     this.#localStorageService.saveUserLocalStorage(user)
+  }
+
+  isUserAuthenticated(): boolean {
+    // if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+    //   return false;
+    // }
+    return localStorage.getItem('programai:access_token') !== null;
   }
 }

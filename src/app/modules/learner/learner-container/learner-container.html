@@ -1,0 +1,15 @@
+<div class="flex flex-col lg:flex-row h-screen w-screen overflow-hidden">
+
+    <div class="shrink-0">
+        <app-learner-menu (menuItemSelected)="goToModule($event)" />
+    </div>
+
+    <div class="flex flex-col flex-1 overflow-auto mb-4">
+        <div class="flex flex-col min-h-[92vh]">
+            
+            <div class="flex-1 p-4 bg-base-100">
+                <router-outlet />
+            </div>
+        </div>
+    </div>
+</div>
