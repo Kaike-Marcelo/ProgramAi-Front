@@ -15,15 +15,15 @@
             Manter Conectado
           </label>
 
-          <button class="btn btn-ghost hover:bg-primary text-secondary font-normal ml-auto"
+          <button type="button" class="btn btn-ghost hover:bg-primary text-secondary font-normal ml-auto"
             [routerLink]="'/password-reset'">Esqueci a senha</button>
         </div>
       </div>
-    </form>
 
-    <div class="my-2 mt-7">
-      <app-primary-button [textButton]="'Entrar'" [r_loading]="userAccessActions" (click)="signIn()"/>
-    </div>
+      <div class="my-2 mt-7">
+        <app-primary-button type="submit" [textButton]="'Entrar'" [r_loading]="userAccessActions" (click)="signIn()" />
+      </div>
+    </form>
 
     <app-second-button [textButton]="'Ainda não sou aluno'" [routerLink]="'/sign-up'" />
   </div>
