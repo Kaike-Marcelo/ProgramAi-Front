@@ -1,0 +1,43 @@
+<div
+    [class]="'flex flex-row justify-between ' + styles.text + ' leading-tight w-full h-25 p-3 rounded-lg ' + styles.background + ' content-center text-sm sm:text-base md:gap-2 shadow-sm transition hover:shadow-lg'">
+
+    <!-- Posição, Nome e Codinome -->
+    <div class="flex flex-col w-3/5 items-start md:flex-row md:w-1/2 md:items-center md:gap-1">
+        <!-- Posição -->
+        <p [class]="'' + styles.position + ' font-extrabold text-2xl md:flex md:items-center'">
+            #{{data?.position || '--'}}
+        </p>
+
+        <!-- Nome e Codinome -->
+        <div class="flex flex-col md:flex-row md:gap-5">
+            <p [class]="'font-bold ' + styles.fullName "> {{data?.fullName || '--'}} </p>
+            <p [class]="'' + styles.codename"> {{data?.codenameName || '--'}} </p>
+        </div>
+    </div>
+
+    <!-- Pontuação, Nome do Rank e Estrelas -->
+    <div
+        class="flex flex-col w-2/5 items-end justify-center sm:items-center sm:flex-row sm:justify-between md:w-1/2 md:gap-1">
+        <div class="flex flex-col order-last sm:w-2/5 md:flex-row md:items-center sm:order-first md:gap-1">
+            <!-- Estrelas -->
+            <div [class]="'flex items-center justify-center gap-0.5 text-sm sm:text-xl'">
+                @for(star of getStarsArray(totalNumberOfStars); track $index) {
+                <i [class]="'ph'+ (styles.stars.fill ? '-fill' : '') + ' ph-star ' + 
+                            (($index < (data?.stars || 0)) 
+                                ? styles.stars.colorActivated 
+                                : styles.stars.colorDisabled)"></i>
+                }
+            </div>
+            <!-- Nome do Rank -->
+            <p
+                [class]="'' + styles.rankNameAndScore + ' font-semibold uppercase tracking-wide text-center text-[9px] sm:text-xs'">
+                {{ data?.rankName || '--'}} </p>
+        </div>
+
+        <!-- Pontuação Total -->
+        <div class="flex flex-col items-end sm:w-3/5">
+            <p [class]="'' + styles.rankNameAndScore + ' font-bold text-lg sm:text-xl'"> {{ data?.totalScore || 0}} </p>
+            <p [class]="'' + styles.text +'/60 text-[10px] hidden sm:block uppercase tracking-wider'">Pontuação</p>
+        </div>
+    </div>
+</div>
