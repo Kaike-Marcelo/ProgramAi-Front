@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { StarsInterface } from '../../../../../shared/components/complex-components/ranking-card/types/ranking-card.types';
+import { StarsInterface } from '../ranking-card/types/ranking-card.types';
 
 @Component({
   selector: 'app-stars',

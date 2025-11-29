@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { RankingCard } from "../../../shared/components/complex-components/ranking-card/ranking-card";
 import { RankingService } from '../../../services/ranking.service';
 import { SnackbarService } from '../../../shared/services/snackbar.service';
 import { RankingGlobalModel } from '../../../core/models/ranking.model';
@@ -7,6 +6,7 @@ import { AchievementsCard } from "./components/achievements-card/achievements-ca
 import { Achievements } from '../../../core/models/achievements.model';
 import { forkJoin } from 'rxjs';
 import { UserService } from '../../../services/user.service';
+import { RankingCard } from './components/ranking-card/ranking-card';
 
 @Component({
   selector: 'app-ranking',

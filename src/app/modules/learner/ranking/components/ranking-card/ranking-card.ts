@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { RankingCardType, StyleRankingCardInterface } from './types/ranking-card.types';
 import { getRankingCardStyle } from './utils/ranking-card.styles';
-import { RankingItemModel } from '../../../../core/models/ranking.model';
-import { Stars } from "../../../../modules/learner/ranking/components/stars/stars";
+import { RankingItemModel } from '../../../../../core/models/ranking.model';
+import { Stars } from '../stars/stars';
 
 @Component({
   selector: 'app-ranking-card',

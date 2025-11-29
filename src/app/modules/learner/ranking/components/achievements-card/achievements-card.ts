@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Stars } from "../stars/stars";
-import { RankingCardType, StyleRankingCardInterface } from '../../../../../shared/components/complex-components/ranking-card/types/ranking-card.types';
 import { Achievements } from '../../../../../core/models/achievements.model';
-import { getRankingCardStyle } from '../../../../../shared/components/complex-components/ranking-card/utils/ranking-card.styles';
+import { RankingCardType, StyleRankingCardInterface } from '../ranking-card/types/ranking-card.types';
+import { getRankingCardStyle } from '../ranking-card/utils/ranking-card.styles';
 
 @Component({
   selector: 'app-achievements-card',
