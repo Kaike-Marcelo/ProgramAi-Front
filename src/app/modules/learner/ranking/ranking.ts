@@ -7,10 +7,11 @@ import { Achievements } from '../../../core/models/achievements.model';
 import { forkJoin } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { RankingCard } from './components/ranking-card/ranking-card';
+import { RankingCardSkeleton } from "../../../shared/components/complex-components/skeleton/ranking-card-skeleton/ranking-card-skeleton";
 
 @Component({
   selector: 'app-ranking',
-  imports: [RankingCard, AchievementsCard],
+  imports: [RankingCard, AchievementsCard, RankingCardSkeleton],
   templateUrl: './ranking.html',
 })
 export class Ranking implements OnInit {
