@@ -7,10 +7,11 @@ import { FormValidationService } from '../../../../shared/services/form/form-val
 import { PrimaryButtonComponent } from "../../../../shared/components/simple-components/button/primary-button/primary-button.component";
 import { SecondButtonComponent } from "../../../../shared/components/simple-components/button/second-button/second-button.component";
 import { Router, RouterLink } from "@angular/router";
-import { AuthenticationService } from '../../../../services/authentication.service';
 import { RequestSignUp } from '../../../../core/dtos/request/request-sign-up.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackbarService } from '../../../../shared/services/snackbar.service';
+import { UserService } from '../../../../services/user.service';
+import { AuthenticationService } from '../../../../services/authentication.service';
 
 @Component({
   selector: 'app-user-access-sign-up',
@@ -20,6 +21,7 @@ import { SnackbarService } from '../../../../shared/services/snackbar.service';
 export class UserAccessSignUp {
   #fb = inject(FormBuilder);
   #destroyRef = inject(DestroyRef);
+  #userService = inject(UserService);
   #authService = inject(AuthenticationService);
   #FormValidationService = inject(FormValidationService)
   #snackBarService = inject(SnackbarService);
@@ -44,7 +46,7 @@ export class UserAccessSignUp {
     };
 
     this.r_loading.set(true);
-    this.#authService.SignUp(request)
+    this.#userService.createUser(request)
       .pipe(takeUntilDestroyed(this.#destroyRef))
       .subscribe({
         next: (response) => {

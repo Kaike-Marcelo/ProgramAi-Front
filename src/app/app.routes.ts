@@ -4,7 +4,7 @@ import { UserAccessSignUp } from './modules/user-access/components/user-access-s
 import { UserAccessPasswordReset } from './modules/user-access/components/user-access-password-reset/user-access-password-reset';
 import { Home } from './modules/learner/home/home';
 import { LearnerContainer } from './modules/learner/learner-container/learner-container';
-import { authGuard } from './core/guards/auth-guard';
+import { authGuard } from './core/guards/auth.guard';
 import { Ranking } from './modules/learner/ranking/ranking';
 import { Challenges } from './modules/learner/challenges/challenges';
 

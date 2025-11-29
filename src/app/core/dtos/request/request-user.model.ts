@@ -1,3 +1,4 @@
+import { EUserRole } from "../../enums/user-role.enum";
 import { RequestProgress } from "./request-progress.model";
 import { RequestToken } from "./request-token.model";
 
@@ -9,7 +10,7 @@ export interface RequestUser {
     codenameName: string;
     createdAt: string;
     updatedAt: string;
-    role: string;
+    role: EUserRole;
     progress: RequestProgress;
     tokens: RequestToken;
 }
