@@ -7,7 +7,7 @@
 
     <div class="flex flex-col ranking-scroll space-y-3 pr-2">
         <h2 class="font-bold text-2xl text-primary">MUNDIAL</h2>
-        <div class="flex flex-col flex-1 max-h-screen border border-base-300 rounded-lg overflow-y-auto gap-3">
+        <div class="flex flex-col flex-1 max-h-130 border border-base-300 rounded-lg overflow-y-auto gap-3">
             @for (ranking of data?.globalRanking; track $index) {
             <app-ranking-card [variant]="(data?.individualRanking?.position === ranking.position) 
                                     ? 'purple' 
