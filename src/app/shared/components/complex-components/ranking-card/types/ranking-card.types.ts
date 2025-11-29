@@ -7,9 +7,11 @@ export interface StyleRankingCardInterface {
     fullName?: string;
     codename?: string
     rankNameAndScore: string;
-    stars: {
-        colorActivated: string;
-        colorDisabled: string;
-        fill?: boolean;
-    }
+    stars: StarsInterface;
+}
+
+export interface StarsInterface {
+    colorActivated: string;
+    colorDisabled: string;
+    fill?: boolean;
 }

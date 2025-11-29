@@ -4,15 +4,21 @@ import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 
+interface PublicRoute {
+  path: string;
+  method: string;
+  usePrefix: boolean;
+}
+
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthenticationService);
   const router = inject(Router);
 
   const token = authService.getAccessToken()
 
-  const PUBLIC_PATH_PREFIXES = [
-    '/login',
-    '/user'
+  const PUBLIC_ROUTES: PublicRoute[] = [
+    { path: '/login', method: 'POST', usePrefix: false },
+    { path: '/user', method: 'GET', usePrefix: false }
   ];
 
   let pathname: string;
@@ -22,9 +28,15 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     pathname = req.url;
   }
 
-  const isPublic = PUBLIC_PATH_PREFIXES.some(path =>
-    pathname === path || pathname.startsWith(path)
-  );
+  const isPublic = PUBLIC_ROUTES.some(route => {
+    const methodMatches = req.method === route.method;
+    let pathMatches = pathname === route.path;
+
+    if (route.usePrefix) {
+      pathMatches = pathMatches || pathname.startsWith(route.path);
+    }
+    return methodMatches && pathMatches;
+  });
 
   if (!token || isPublic) {
     return next(req).pipe(

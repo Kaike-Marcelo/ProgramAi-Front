@@ -20,14 +20,8 @@
         class="flex flex-col w-2/5 items-end justify-center sm:items-center sm:flex-row sm:justify-between md:w-1/2 md:gap-1">
         <div class="flex flex-col order-last sm:w-2/5 md:flex-row md:items-center sm:order-first md:gap-1">
             <!-- Estrelas -->
-            <div [class]="'flex items-center justify-center gap-0.5 text-sm sm:text-xl'">
-                @for(star of getStarsArray(totalNumberOfStars); track $index) {
-                <i [class]="'ph'+ (styles.stars.fill ? '-fill' : '') + ' ph-star ' + 
-                            (($index < (data?.stars || 0)) 
-                                ? styles.stars.colorActivated 
-                                : styles.stars.colorDisabled)"></i>
-                }
-            </div>
+            <app-stars [styleStars]="styles.stars" 
+                        [numberStarActivated]="data?.stars || 0" />
             <!-- Nome do Rank -->
             <p
                 [class]="'' + styles.rankNameAndScore + ' font-semibold uppercase tracking-wide text-center text-[9px] sm:text-xs'">
