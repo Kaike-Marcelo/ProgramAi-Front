@@ -1,6 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from '../label/label';
+import { INPUT_STYLES } from '../../../styles/input-styles';
 
 @Component({
   selector: 'app-input',
@@ -20,6 +21,20 @@ export class InputComponent implements ControlValueAccessor {
   @Input() type: string = 'text';
   @Input() errorMessage = '';
   @Input() requiredLabel: boolean = false;
+
+  private _stylesInput = INPUT_STYLES['default'];
+  @Input() set stylesInput(value: any) {
+    this._stylesInput = value || INPUT_STYLES['default'];
+    this.styleInput = {
+      background: this._stylesInput.background,
+      text: this._stylesInput.text,
+      border: this._stylesInput.border,
+      label: this._stylesInput.label,
+      error: this._stylesInput.error,
+    };
+  }
+
+  styleInput = this._stylesInput;
 
   showError = false;
   showPassword = false;
@@ -54,5 +69,9 @@ export class InputComponent implements ControlValueAccessor {
   onBlur(): void {
     this.onTouched();
     this.showError = true;
+  }
+
+  get stylesInput() {
+    return this._stylesInput;
   }
 }
