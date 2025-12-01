@@ -3,15 +3,13 @@
         <h1 class="text-sm">Selecione abaixo qual módulo deseja seguir com os desafios.</h1>
     </header>
 
-    <div class="flex flex-wrap min-h-full gap-3" role="list" aria-label="Lista de módulos">
+    <div class="flex flex-wrap justify-center min-h-full gap-0.5 sm:gap-2" role="list" aria-label="Lista de módulos">
         @for (module of modulesData; track module.id || $index) {
-        <div role="listitem" class="">
             @if (isUserModule(module.id)) {
-            <app-modules-card [data]="module" [stylesCard]="styleCardFromUser"/>
+            <app-modules-card role="listitem" class="" [data]="module" [stylesCard]="styleCardFromUser"/>
             } @else {
-            <app-modules-card [data]="module" />
+            <app-modules-card role="listitem" class="" [data]="module" />
             }
-        </div>
         }
 
         @if(isAuthorized) {
@@ -47,7 +45,7 @@
                             [styleLabel]="{text: 'text-accent'}"
                             [requiredLabel]="true"/>
                 <textarea placeholder="Insira a descrição do módulo aqui..." 
-                          class="textarea textarea-primary w-full validator" 
+                          class="textarea textarea-primary w-full validator resize-none" 
                           formControlName="description"
                           [class.input-error]="createModuleForm.get('description')?.invalid && 
                                                createModuleForm.get('description')?.touched" rows="3"
