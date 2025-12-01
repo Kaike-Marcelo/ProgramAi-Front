@@ -6,7 +6,7 @@ import { Home } from './modules/learner/home/home';
 import { LearnerContainer } from './modules/learner/learner-container/learner-container';
 import { authGuard } from './core/guards/auth.guard';
 import { Ranking } from './modules/learner/ranking/ranking';
-import { Challenges } from './modules/learner/challenges/challenges';
+import { ListModules } from './modules/learner/challenges/modules/list-modules/list-modules';
 
 export const routes: Routes = [
     {
@@ -40,8 +40,8 @@ export const routes: Routes = [
                 component: Ranking,
             },
             {
-                path: 'challenges',
-                component: Challenges,
+                path: 'modules',
+                component: ListModules,
             }
         ]
     }

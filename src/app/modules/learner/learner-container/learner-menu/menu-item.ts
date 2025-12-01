@@ -12,6 +12,6 @@ export const LEARNER_MENU = [
     {
         icon: 'ph-bold ph-target',
         name: 'Desafios',
-        route: 'learner/challenges',
+        route: 'learner/modules',
     },
 ]

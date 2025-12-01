@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Module } from '../../../../../core/models/module.model';
-import { CARD_STYLES } from '../../../../../shared/styles/card-styles';
+import { Module } from '../../../../../../core/models/module.model';
+import { CARD_STYLES } from '../../../../../../shared/styles/card-styles';
 
 @Component({
   selector: 'app-modules-card',

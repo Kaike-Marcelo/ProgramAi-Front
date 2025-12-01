@@ -1,0 +1,38 @@
+<app-modal #modalCreateModule 
+           [title]="'Adicionar Novo Módulo'">
+
+    <form [formGroup]="createModuleForm">
+        <app-input label="Nome do Módulo" 
+                    placeholder="Insira o nome do módulo"
+                    formControlName="name"
+                    [requiredLabel]="true"
+                    [stylesInput]="inputGoldenStyle"
+                    [errorMessage]="getErrorMessage('name')" />
+
+        <div class="form-control mb-0">
+            <app-label [label]="'Descrição'" 
+                        [styleLabel]="{text: 'text-accent'}"
+                        [requiredLabel]="true"/>
+            <textarea placeholder="Insira a descrição do módulo aqui..." 
+                        class="textarea textarea-primary w-full validator resize-none" 
+                        formControlName="description"
+                        [class.input-error]="createModuleForm.get('description')?.invalid && 
+                                             createModuleForm.get('description')?.touched" rows="3"
+                        required="true"></textarea>
+
+            <div class="validator-hint min-h-[1rem] text-xs mt-0 text-red-600">
+                {{ createModuleForm.get('description')?.touched && 
+                   createModuleForm.get('description')?.invalid ? 'Campo obrigatório' : ' ' }}
+            </div>
+        </div>
+
+    <div class="flex justify-end mt-4 gap-2">
+        <button class="btn btn-ghost ml-2" (click)="closeModal()">Cancelar</button>
+
+        <app-primary-button [textButton]="'Salvar'" 
+                            [r_loading]="r_loading" 
+                            (click)="createModule()"/>
+    </div>
+    </form>
+
+</app-modal>
