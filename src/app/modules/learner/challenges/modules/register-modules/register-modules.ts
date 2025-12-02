@@ -1,15 +1,14 @@
-import { Component, inject, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
+import { Component, inject, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ModalComponent } from '../../../../../shared/components/simple-components/modal/modal.component';
 import { FormBuilder } from '@angular/forms';
 import { FormValidationService } from '../../../../../shared/services/form/form-validation.service';
 import { ModuleFormsFactory } from '../../helpers/module-forms.factory';
 import { Module } from '../../../../../core/models/module.model';
-import { ModulesService } from '../../../../../services/modules.service';
-import { finalize, Subject, takeUntil } from 'rxjs';
-import { SnackbarService } from '../../../../../shared/services/snackbar.service';
 import { MODULES_IMPORTS } from '../../helpers/imports';
 import { INPUT_STYLES } from '../../../../../shared/styles/input-styles';
 import { InputComponent } from '../../../../../shared/components/simple-components/input/input';
+import { ModulesActions } from '../../action/modules.actions';
+import { ModulesStore } from '../../store/modules.store';
 
 @Component({
   selector: 'app-register-modules',
@@ -17,15 +16,13 @@ import { InputComponent } from '../../../../../shared/components/simple-componen
   templateUrl: './register-modules.html',
 })
 export class RegisterModules {
-  private destroy$ = new Subject<void>();
-
   #fb = inject(FormBuilder);
   #formValidationService = inject(FormValidationService);
-  #modulesService = inject(ModulesService);
-  #snackbarService = inject(SnackbarService);
+  #moduleAction = inject(ModulesActions);
+  #moduleStore = inject(ModulesStore);
 
   createModuleForm = ModuleFormsFactory.buildCreateModuleForm(this.#fb);
-  r_loading = signal(false);
+  r_loading = this.#moduleStore.loading;
 
   inputGoldenStyle = INPUT_STYLES['golden'];
 
@@ -47,23 +44,9 @@ export class RegisterModules {
     if (!this.#formValidationService.validateFormAndShowErrors(this.createModuleForm, this.appInputs)) return;
 
     const newModuleData: Module = this.createModuleForm.value;
+    this.#moduleAction.create(newModuleData);
 
-    this.r_loading.set(true);
-    this.#modulesService.createModule(newModuleData)
-      .pipe(
-        takeUntil(this.destroy$),
-        finalize(() => this.r_loading.set(false))
-      ).subscribe({
-        next: (response) => {
-          // this.loadModules();
-          this.#snackbarService.showSuccess(response.message);
-          this.createModuleForm.reset();
-          this.modalCreateModule.close();
-        },
-        error: (err) => {
-          this.#snackbarService.showError(err.message);
-        }
-      });
+    this.closeModal();
   }
 
   openRegisterModulesModal() {

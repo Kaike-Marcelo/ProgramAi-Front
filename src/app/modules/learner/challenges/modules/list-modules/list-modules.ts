@@ -1,14 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal, ViewChild } from "@angular/core";
-import { finalize, forkJoin, Subject, takeUntil } from "rxjs";
+import { ChangeDetectionStrategy, Component, inject, OnInit } from "@angular/core";
 import { EUserRole } from "../../../../../core/enums/user-role.enum";
-import { Module, ModuleForUser } from "../../../../../core/models/module.model";
 import { AuthenticationService } from "../../../../../services/authentication.service";
-import { ChallengeService } from "../../../../../services/challenge.service";
 import { CARD_STYLES } from "../../../../../shared/styles/card-styles";
 import { LIST_MODULES_IMPORTS } from "../../helpers/imports";
-import { ModulesService } from "../../../../../services/modules.service";
-import { SnackbarService } from "../../../../../shared/services/snackbar.service";
 import { RegisterModules } from "../register-modules/register-modules";
+import { ModulesStore } from "../../store/modules.store";
+import { ModulesActions } from "../../action/modules.actions";
 
 @Component({
   selector: 'app-list-modules',
@@ -16,49 +13,22 @@ import { RegisterModules } from "../register-modules/register-modules";
   imports: [LIST_MODULES_IMPORTS, RegisterModules],
   templateUrl: './list-modules.html',
 })
-export class ListModules implements OnDestroy, OnInit {
-  private destroy$ = new Subject<void>();
-
-  #modulesService = inject(ModulesService);
-  #challengeService = inject(ChallengeService);
+export class ListModules implements OnInit {
+  #modulesStore = inject(ModulesStore);
+  #modulesActions = inject(ModulesActions);
   #authService = inject(AuthenticationService);
-  #snackbarService = inject(SnackbarService);
 
-  r_loading = signal(false);
+  r_loading = this.#modulesStore.loading;
 
-  modulesData: Module[] = [];
-  userModulesData: ModuleForUser[] = [];
+  modulesData = this.#modulesStore.modules;
+  userModulesData = this.#modulesStore.userModules;
+  idUserModule = this.#modulesStore.idUserModule;
 
   styleCard = CARD_STYLES['golden'];
   styleCardFromUser = CARD_STYLES['royal'];
 
   ngOnInit(): void {
-    this.loadModules();
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  private loadModules(): void {
-    this.r_loading.set(true);
-    forkJoin({
-      modules: this.#modulesService.getModules(),
-      userModules: this.#challengeService.getModulesForLoggedInUser()
-    }).pipe(
-      takeUntil(this.destroy$),
-      finalize(() => this.r_loading.set(false))
-    ).subscribe({
-      next: (response) => {
-        this.modulesData = response.modules.data;
-        this.userModulesData = response.userModules.data;
-        this.#snackbarService.showSuccess(response.modules.message);
-      },
-      error: (err) => {
-        this.#snackbarService.showError(err.message);
-      }
-    });
+    this.#modulesActions.loadAll();
   }
 
   get isAuthorized(): boolean {
@@ -67,6 +37,6 @@ export class ListModules implements OnDestroy, OnInit {
   }
 
   isUserModule(moduleId: string): boolean {
-    return this.userModulesData.some(um => um.moduleId === moduleId);
+    return this.idUserModule().includes(moduleId);
   }
 }

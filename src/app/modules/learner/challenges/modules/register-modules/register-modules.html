@@ -16,8 +16,6 @@
             <textarea placeholder="Insira a descrição do módulo aqui..." 
                         class="textarea textarea-primary w-full validator resize-none" 
                         formControlName="description"
-                        [class.input-error]="createModuleForm.get('description')?.invalid && 
-                                             createModuleForm.get('description')?.touched" rows="3"
                         required="true"></textarea>
 
             <div class="validator-hint min-h-[1rem] text-xs mt-0 text-red-600">

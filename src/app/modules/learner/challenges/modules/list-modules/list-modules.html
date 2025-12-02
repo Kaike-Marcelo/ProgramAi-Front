@@ -12,7 +12,7 @@
         <div class="skeleton h-50 w-50"></div>
 
         } @else {
-        @for (module of modulesData; track module.id || $index) {
+        @for (module of modulesData(); track module.id) {
             <app-modules-card [data]="module" role="listitem" 
                               [stylesCard]="isUserModule(module.id) 
                                             ? styleCardFromUser 
