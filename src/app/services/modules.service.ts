@@ -5,7 +5,7 @@ import { ModulesForTheLoggedInUserResponseDto, ModulesResponseDto } from '../cor
 import { environment } from '../../environments/environment';
 import { mapSimpleApiResponse } from '../core/operators/map-simple-api-response.operator';
 import { Observable } from 'rxjs';
-import { RequestModule } from '../core/dtos/request/request-module.model';
+import { RequestModule, RequestUserModule } from '../core/dtos/request/request-module.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,12 @@ export class ModulesService {
 
   createModule(module: RequestModule): Observable<MappedResponse<ModulesResponseDto>> {
     return this.#http.post<MappedResponse<ModulesResponseDto>>(`${environment.apiUrl}/module`, module).pipe(
+      mapSimpleApiResponse()
+    );
+  }
+
+  addNewModuleToUser(module: RequestUserModule): Observable<MappedResponse<ModulesForTheLoggedInUserResponseDto>> {
+    return this.#http.post<MappedResponse<ModulesForTheLoggedInUserResponseDto>>(`${environment.apiUrl}/challenge/modules`, module).pipe(
       mapSimpleApiResponse()
     );
   }

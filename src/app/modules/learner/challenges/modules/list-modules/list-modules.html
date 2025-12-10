@@ -12,16 +12,20 @@
         <div class="skeleton h-50 w-50"></div>
 
         } @else {
-        @for (module of modulesData(); track module.id) {
-            <app-modules-card [data]="module" role="listitem" 
-                              [stylesCard]="isUserModule(module.id) 
-                                            ? styleCardFromUser 
-                                            : undefined"
-                              class=""/>
+        @for (module of userModulesData(); track $index) {
+        <app-modules-card [title]="module.moduleName" role="listitem" 
+                          [stylesCard]="{
+                            text: styleCardFromUser.text,
+                            icon: 'devicon-' + getLowercaseName(module.moduleName) + '-plain',
+                            isNewModule: true,
+                            background: styleCardFromUser.background,
+                            border: styleCardFromUser.border,
+                            size: 'w-40 h-70 sm:w-50 sm:h-50'
+                          }"
+                          [id]="module.id" />
         }
         }
 
-        @if(isAuthorized && !r_loading()) {
         <div role="listitem">
             <app-modules-card [title]="'Novo Módulo'"
                               [stylesCard]="{
@@ -34,7 +38,6 @@
                             }" 
                             (click)="registerModulesModal.openRegisterModulesModal()"/>
         </div>
-        }
     </div>
 
     <app-register-modules #registerModulesModal />

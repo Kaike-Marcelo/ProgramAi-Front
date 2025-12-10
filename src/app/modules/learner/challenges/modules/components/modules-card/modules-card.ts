@@ -10,6 +10,7 @@ import { CARD_STYLES } from '../../../../../../shared/styles/card-styles';
 export class ModulesCard {
   @Output() clickCard = new EventEmitter<Module | null>();
 
+  @Input() id: string = '';
   @Input() data: Module | null = null;
   @Input() title: string = 'Adicionar Novo Módulo';
 

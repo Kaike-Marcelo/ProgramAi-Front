@@ -1,36 +1,33 @@
 <app-modal #modalCreateModule 
            [title]="'Adicionar Novo Módulo'">
 
-    <form [formGroup]="createModuleForm">
-        <app-input label="Nome do Módulo" 
-                    placeholder="Insira o nome do módulo"
-                    formControlName="name"
-                    [requiredLabel]="true"
-                    [stylesInput]="inputGoldenStyle"
-                    [errorMessage]="getErrorMessage('name')" />
+    @if (r_loading()) {
+    <div class="text-center py-4">
+        <span class="loading loading-spinner loading-md"></span>
+        <p class="mt-2">Carregando módulos...</p>
+    </div>
 
-        <div class="form-control mb-0">
-            <app-label [label]="'Descrição'" 
-                        [styleLabel]="{text: 'text-accent'}"
-                        [requiredLabel]="true"/>
-            <textarea placeholder="Insira a descrição do módulo aqui..." 
-                        class="textarea textarea-primary w-full validator resize-none" 
-                        formControlName="description"
-                        required="true"></textarea>
-
-            <div class="validator-hint min-h-[1rem] text-xs mt-0 text-red-600">
-                {{ createModuleForm.get('description')?.touched && 
-                   createModuleForm.get('description')?.invalid ? 'Campo obrigatório' : ' ' }}
+    } @else {
+    <div class="grid grid-cols-1 gap-3 p-2">
+        @for (module of modules(); track $index) {
+        <div (click)="selectModule(module)" 
+                class="card bg-base-200 hover:bg-base-300 cursor-pointer transition-colors duration-200 p-4">
+            <div class="card-body p-0">
+                <h3 class="card-title text-lg font-semibold">{{ module.name }}</h3>
+                <p class="text-sm opacity-80">{{ module.description }}</p>
             </div>
         </div>
-
+        }
+        
+        @if (modules().length === 0) {
+        <div class="text-center py-8">
+            <p class="text-gray-500">Nenhum módulo disponível</p>
+        </div>
+        }
+    </div>
+    }
     <div class="flex justify-end mt-4 gap-2">
         <button class="btn btn-ghost ml-2" (click)="closeModal()">Cancelar</button>
-
-        <app-primary-button [textButton]="'Salvar'" 
-                            [r_loading]="r_loading" 
-                            (click)="createModule()"/>
     </div>
-    </form>
 
 </app-modal>
