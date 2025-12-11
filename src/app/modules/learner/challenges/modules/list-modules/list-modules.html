@@ -22,7 +22,8 @@
                             border: styleCardFromUser.border,
                             size: 'w-40 h-70 sm:w-50 sm:h-50'
                           }"
-                          [id]="module.id" />
+                          [id]="module.id" 
+                          (clickCard)="onModuleCardClick($event)" />
         }
         }
 
@@ -41,5 +42,5 @@
     </div>
 
     <app-register-modules #registerModulesModal />
-
+<router-outlet />
 </section>

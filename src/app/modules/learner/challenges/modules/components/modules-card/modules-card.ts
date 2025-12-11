@@ -8,7 +8,7 @@ import { CARD_STYLES } from '../../../../../../shared/styles/card-styles';
   templateUrl: './modules-card.html',
 })
 export class ModulesCard {
-  @Output() clickCard = new EventEmitter<Module | null>();
+  @Output() clickCard = new EventEmitter<string | null>();
 
   @Input() id: string = '';
   @Input() data: Module | null = null;
@@ -30,7 +30,7 @@ export class ModulesCard {
 
 
   onClickCard(): void {
-    this.clickCard.emit(this.data);
+    this.clickCard.emit(this.id || null);
   }
 
   getLowercaseName(): string {

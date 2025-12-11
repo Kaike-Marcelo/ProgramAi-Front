@@ -7,6 +7,7 @@ import { LearnerContainer } from './modules/learner/learner-container/learner-co
 import { authGuard } from './core/guards/auth.guard';
 import { Ranking } from './modules/learner/ranking/ranking';
 import { ListModules } from './modules/learner/challenges/modules/list-modules/list-modules';
+import { Topics } from './modules/learner/challenges/topics/topics';
 
 export const routes: Routes = [
     {
@@ -34,15 +35,29 @@ export const routes: Routes = [
             {
                 path: 'home',
                 component: Home,
+                data: { breadcrumb: 'Dashboard' }
             },
             {
                 path: 'ranking',
                 component: Ranking,
+                data: { breadcrumb: 'Ranking' }
             },
             {
                 path: 'modules',
-                component: ListModules,
-            }
+                data: { breadcrumb: 'Módulos' },
+                children: [
+                    {
+                        path: '',
+                        component: ListModules,
+                        data: { breadcrumb: '' }
+                    },
+                    {
+                        path: 'topics/:moduleId',
+                        component: Topics,
+                        data: { breadcrumb: 'Tópicos' }
+                    },
+                ],
+            },
         ]
     }
 ];
