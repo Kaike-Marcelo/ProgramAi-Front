@@ -1,30 +1,22 @@
-import { Component, DestroyRef, inject, QueryList, signal, ViewChildren } from '@angular/core';
-import { UserAccessContainer } from "../user-access-container/user-access-container";
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, QueryList, signal, ViewChildren } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { UserAccessFormsFactory } from '../../helpers/user-access-forms.factory';
 import { InputComponent } from "../../../../shared/components/simple-components/input/input";
 import { FormValidationService } from '../../../../shared/services/form/form-validation.service';
-import { PrimaryButtonComponent } from "../../../../shared/components/simple-components/button/primary-button/primary-button.component";
-import { SecondButtonComponent } from "../../../../shared/components/simple-components/button/second-button/second-button.component";
-import { Router, RouterLink } from "@angular/router";
+import { Router } from "@angular/router";
 import { RequestSignUp } from '../../../../core/dtos/request/request-sign-up.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { SnackbarService } from '../../../../shared/services/snackbar.service';
-import { UserService } from '../../../../services/user.service';
-import { AuthenticationService } from '../../../../services/authentication.service';
+import { UserAccessActions } from '../../actions/user-access.actions';
+import { SIGN_UP_IMPORTS } from '../../utils/imports';
 
 @Component({
   selector: 'app-user-access-sign-up',
-  imports: [UserAccessContainer, InputComponent, ReactiveFormsModule, PrimaryButtonComponent, SecondButtonComponent, RouterLink],
+  imports: [SIGN_UP_IMPORTS],
   templateUrl: './user-access-sign-up.html',
 })
 export class UserAccessSignUp {
   #fb = inject(FormBuilder);
-  #destroyRef = inject(DestroyRef);
-  #userService = inject(UserService);
-  #authService = inject(AuthenticationService);
+  #actions = inject(UserAccessActions);
   #FormValidationService = inject(FormValidationService)
-  #snackBarService = inject(SnackbarService);
   #router = inject(Router);
 
   signUpForm = UserAccessFormsFactory.buildSignUpForm(this.#fb);
@@ -45,22 +37,9 @@ export class UserAccessSignUp {
       password,
     };
 
-    this.r_loading.set(true);
-    this.#userService.createUser(request)
-      .pipe(takeUntilDestroyed(this.#destroyRef))
-      .subscribe({
-        next: (response) => {
-          this.#authService.setTokensLocalStorage(response.data)
-          this.#snackBarService.showSuccess(response.message);
-          this.#router.navigate(['/learner/home']);
-        },
-        error: (err: string[]) => {
-          this.#snackBarService.showError(err[0]);
-          this.r_loading.set(false);
-        },
-        complete: () => {
-          this.r_loading.set(false);
-        }
+    this.#actions.signUp(request)
+      .subscribe(() => {
+        this.#router.navigate(['/learner/home']);
       });
   }
 
