@@ -35,7 +35,7 @@ export const routes: Routes = [
             {
                 path: 'home',
                 component: Home,
-                data: { breadcrumb: 'Dashboard' }
+                data: { breadcrumb: 'Painel do Aluno' }
             },
             {
                 path: 'ranking',
@@ -54,7 +54,7 @@ export const routes: Routes = [
                     {
                         path: 'topics/:moduleId',
                         component: Topics,
-                        data: { breadcrumb: 'Tópicos' }
+                        data: { breadcrumb: 'Tópicos' },
                     },
                 ],
             },

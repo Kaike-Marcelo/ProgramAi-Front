@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { timer } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { SnackbarService } from '../../../services/snackbar.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToastComponent {
+  private hideSub?: Subscription;
   message = signal('');
   type = signal<'info' | 'success' | 'warning' | 'error'>('info');
   visible = signal(false);
@@ -17,10 +18,13 @@ export class ToastComponent {
   constructor(private snackbar: SnackbarService) {
     this.snackbar.toast$.subscribe((toast) => {
       if (toast) {
+        this.hideSub?.unsubscribe();
+
         this.message.set(toast.message);
         this.type.set(toast.type);
         this.visible.set(true);
-        timer(3000).subscribe(() => this.visible.set(false));
+
+        this.hideSub = timer(3000).subscribe(() => this.visible.set(false));
       }
     });
   }

@@ -1,10 +1,99 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, effect, computed } from '@angular/core';
+import { Accordion } from "./components/accordion/accordion";
+import { ChallengesStore } from '../store/challengs.store';
+import { ChallengesActions } from '../action/challenges.actions';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RequestChallengeQuestions, RequestModuleDetails } from '../../../../core/dtos/request/request-challenges.model';
+import { RadialProgress } from "../../../../shared/components/simple-components/radial-progress/radial-progress";
 
 @Component({
   selector: 'app-topics',
-  imports: [],
+  imports: [Accordion, RadialProgress],
   templateUrl: './topics.html',
 })
-export class Topics {
+export class Topics implements OnInit, OnDestroy {
+  #route = inject(ActivatedRoute);
+  #router = inject(Router);
+  #store = inject(ChallengesStore);
+  #actions = inject(ChallengesActions);
 
+  moduleId: string = '';
+  moduleDetails = this.#store.moduleDatails;
+  loading = this.#store.loading;
+  hasError = this.#store.hasError;
+
+  progress = computed(() => {
+    const details = this.moduleDetails();
+    if (!details || !details.topics || details.topics.length === 0) return 0;
+
+    let totalWeightedScore = 0;
+    let maxPossibleScore = 0;
+
+    for (const topic of details.topics) {
+      const topicWeight = 1;
+
+      if (topic.questions && topic.questions.length > 0) {
+        const totalQuestions = topic.questions.length;
+        const completedQuestions = topic.questions.filter(q => q.endAt && q.endAt !== '').length;
+
+        const maxScoreForTopic = totalQuestions;
+        const playerScoreForTopic = completedQuestions;
+
+        const weightedContribution = (playerScoreForTopic / maxScoreForTopic) * topicWeight;
+        totalWeightedScore += weightedContribution;
+        maxPossibleScore += topicWeight;
+
+      } else {
+        const maxScoreForTopic = 10;
+        const playerScoreForTopic = 0;
+
+        const weightedContribution = (playerScoreForTopic / maxScoreForTopic) * topicWeight;
+        totalWeightedScore += weightedContribution;
+        maxPossibleScore += topicWeight;
+      }
+    }
+    const calculatedProgress = maxPossibleScore > 0 ? (totalWeightedScore / maxPossibleScore) * 100 : 0;
+
+    return Math.round(calculatedProgress);
+  });
+
+  constructor() {
+    effect(() => {
+      if (this.hasError()) {
+        this.#router.navigate(['learner/modules']);
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.#route.params.subscribe(params => {
+      this.moduleId = params['moduleId'];
+      const request: RequestModuleDetails = {
+        moduleId: this.moduleId,
+        includeEmptyTopics: true
+      }
+      this.#actions.loadModuleDetails(request)
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.#actions.clearModuleDetails();
+  }
+
+  goBack() {
+    this.#router.navigate(['learner/modules']);
+  }
+
+  onTopicClick(id: number) {
+    if (!id) return;
+    const request: RequestChallengeQuestions = {
+      moduleId: Number(this.moduleId),
+      topicId: id,
+    }
+    this.#actions.loadChallengeQuestions(request);
+  }
+
+  getLowercaseName(name: string): string {
+    return name.toLowerCase().split(' ').join('');
+  }
 }

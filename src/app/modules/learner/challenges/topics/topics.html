@@ -1,1 +1,39 @@
-<p>topics works!</p>
+<section class="flex flex-col text-accent rounded-lg gap-5">
+    <div class="flex flex-col md:flex-row md:items-stretch gap-3">
+        <div class="flex flex-row w-full gap-2">
+            <button
+                class="w-1xs h-auto p-3 btn btn-secondary md:w-40 flex flex-col items-center justify-center md:w-40 sm:text-3xl" (click)="goBack()">
+                <i class="ph ph-caret-left"></i>
+                Voltar
+            </button>
+
+            <header class="w-full text-md bg-base-200 shadow-sm p-5 rounded-lg flex flex-col justify-center md:text-lg">
+                <h1 class=" font-normal">
+                    Selecione o desafio que deseja desenvolver.
+                </h1>
+                <p class="">
+                    <span class="text-secondary">#</span>
+                    <span class="text-accent font-bold">AcerteDePrima</span>
+                    para ganhar bônus extra.
+                </p>
+            </header>
+        </div>
+
+        <div class="w-full md:w-3xs flex flex-col items-center justify-center">
+            <app-radial-progress [icon]="'devicon-' + getLowercaseName(moduleDetails()?.moduleName || '') + '-plain'" 
+                                 [totalProgress]="progress()" />
+        </div>
+    </div>
+
+    <div>
+        @if (loading()) {
+        <div class="fixed inset-0 flex items-center justify-center bg-accent/20 z-50">
+            <span class="loading loading-spinner text-secondary size-16"></span>
+        </div>
+        }
+
+        @for (topic of moduleDetails()?.topics; track $index) {
+        <app-accordion [data]="topic" (topicClick)="onTopicClick($event)" />
+        }
+    </div>
+</section>
