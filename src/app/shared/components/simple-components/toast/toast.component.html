@@ -1,6 +1,6 @@
 @if (visible()) {
 
-  <div class="toast toast-top toast-center z-50">
+  <div class="toast toast-top toast-center z-[9999]">
   @if (type() === 'success') {
 
   <div role="alert" class="alert alert-success">
@@ -41,8 +41,6 @@
     </svg>
     <span>{{ message() }}</span>
   </div>
-
   }
-
 </div>
 }

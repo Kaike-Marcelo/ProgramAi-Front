@@ -3,10 +3,11 @@ import { RankingCardType, StyleRankingCardInterface } from './types/ranking-card
 import { getRankingCardStyle } from './utils/ranking-card.styles';
 import { RankingItemModel } from '../../../../../core/models/ranking.model';
 import { Stars } from '../stars/stars';
+import { ScoreFormatPipe } from '../../../../../shared/pipes/score-format-pipe';
 
 @Component({
   selector: 'app-ranking-card',
-  imports: [Stars],
+  imports: [Stars, ScoreFormatPipe],
   templateUrl: './ranking-card.html',
 })
 export class RankingCard {

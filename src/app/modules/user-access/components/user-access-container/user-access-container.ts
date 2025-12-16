@@ -2,10 +2,11 @@ import { ChangeDetectorRef, Component, inject, Input, OnDestroy, OnInit } from '
 import { DeviceService } from '../../../../shared/services/device.service';
 import { ThemeService } from '../../../../shared/services/theme.service';
 import { DEFAULT_THEME } from '../../../../core/consts/themes';
+import { FloatingTopNavbar } from "../../../../shared/components/complex-components/floating-top-navbar/floating-top-navbar";
 
 @Component({
   selector: 'app-user-access-container',
-  imports: [],
+  imports: [FloatingTopNavbar],
   templateUrl: './user-access-container.html'
 })
 export class UserAccessContainer implements OnInit, OnDestroy {
