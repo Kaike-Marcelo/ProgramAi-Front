@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { MappedResponse } from '../core/interfaces/mapped-response.interface';
 import { environment } from '../../environments/environment';
 import { mapSimpleApiResponse } from '../core/operators/map-simple-api-response.operator';
-import { RequestChallengeQuestions, RequestModuleDetails } from '../core/dtos/request/request-challenges.model';
-import { ModuleDetailsResponseDto } from '../core/dtos/response/challenges/challenges-response-dto';
+import { RequestChallengeQuestions, RequestModuleDetails, RequestQuestionDetailed, RequestSubmitQuestion } from '../core/dtos/request/request-challenges.model';
+import { ChallengeQuestionDetailsResponseDto, ModuleDetailsResponseDto } from '../core/dtos/response/challenges/challenges-response-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,18 @@ export class ChallengeService {
 
   loadChallengeQuestions(request: RequestChallengeQuestions): Observable<MappedResponse<ModuleDetailsResponseDto>> {
     return this.#http.post<MappedResponse<ModuleDetailsResponseDto>>(`${environment.apiUrl}/challenge/questions/generate`, request).pipe(
+      mapSimpleApiResponse()
+    );
+  }
+
+  getQuestionDetailed(request: RequestQuestionDetailed): Observable<MappedResponse<ChallengeQuestionDetailsResponseDto>> {
+    return this.#http.post<MappedResponse<ChallengeQuestionDetailsResponseDto>>(`${environment.apiUrl}/challenge/questions/detailed`, request).pipe(
+      mapSimpleApiResponse()
+    );
+  }
+
+  submitQuestionAnswer(request: RequestSubmitQuestion): Observable<MappedResponse<ChallengeQuestionDetailsResponseDto>> {
+    return this.#http.post<MappedResponse<ChallengeQuestionDetailsResponseDto>>(`${environment.apiUrl}/challenge/questions/submit`, request).pipe(
       mapSimpleApiResponse()
     );
   }

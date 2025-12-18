@@ -1,14 +1,14 @@
 import { Component, inject, OnDestroy, OnInit, effect, computed } from '@angular/core';
 import { Accordion } from "./components/accordion/accordion";
-import { ChallengesStore } from '../store/challengs.store';
-import { ChallengesActions } from '../action/challenges.actions';
+import { ChallengesStore } from '../../store/challengs.store';
+import { ChallengesActions } from '../../action/challenges.actions';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RequestChallengeQuestions, RequestModuleDetails } from '../../../../core/dtos/request/request-challenges.model';
-import { RadialProgress } from "../../../../shared/components/simple-components/radial-progress/radial-progress";
+import { RequestChallengeQuestions, RequestModuleDetails } from '../../../../../core/dtos/request/request-challenges.model';
+import { Header } from "../shared/header/header";
 
 @Component({
   selector: 'app-topics',
-  imports: [Accordion, RadialProgress],
+  imports: [Accordion, Header],
   templateUrl: './topics.html',
 })
 export class Topics implements OnInit, OnDestroy {
@@ -77,7 +77,7 @@ export class Topics implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.#actions.clearModuleDetails();
+    this.#actions.clearState();
   }
 
   goBack() {
@@ -93,7 +93,19 @@ export class Topics implements OnInit, OnDestroy {
     this.#actions.loadChallengeQuestions(request);
   }
 
+  onQuestionClick(questionId: number) {
+    console.log('Navigating to question:', questionId);
+    this.#router.navigate([`learner/modules/${this.moduleId}/challenge/${questionId}`]);
+  }
+
   getLowercaseName(name: string): string {
     return name.toLowerCase().split(' ').join('');
+  }
+
+  get subtitleHtml() {
+    return `<span class='text-secondary'>#</span>
+            <span class='text-accent font-bold'>
+              AcerteDePrima
+            </span> para ganhar bônus extra.`;
   }
 }

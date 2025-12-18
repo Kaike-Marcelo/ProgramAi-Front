@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from "@angular/core";
-import { CARD_STYLES } from "../../../../../shared/styles/card-styles";
-import { LIST_MODULES_IMPORTS } from "../../helpers/imports";
-import { RegisterModules } from "../register-modules/register-modules";
-import { ModulesStore } from "../../store/modules.store";
-import { ModulesActions } from "../../action/modules.actions";
-import { Router, RouterOutlet } from "@angular/router";
+import { CARD_STYLES } from "../../../../../../shared/styles/card-styles";
+import { LIST_MODULES_IMPORTS } from "../../../helpers/imports";
+import { ModulesStore } from "../../../store/modules.store";
+import { ModulesActions } from "../../../action/modules.actions";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-list-modules',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LIST_MODULES_IMPORTS, RegisterModules, RouterOutlet],
+  imports: [LIST_MODULES_IMPORTS],
   templateUrl: './list-modules.html',
 })
 export class ListModules implements OnInit {
@@ -33,6 +32,6 @@ export class ListModules implements OnInit {
 
   onModuleCardClick(id: string | null) {
     if (!id) return;
-    this.#router.navigate([`/learner/modules/topics/${id}`]);
+    this.#router.navigate([`/learner/modules/${id}`]);
   }
 }

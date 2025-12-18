@@ -11,7 +11,9 @@
   <div class="collapse-content flex flex-col h-sm text-primary gap-2">
     @for (question of data?.questions; track $index) {
     <div
-      class="flex flex-col justify-between items-start cursor-pointer bg-base-300 text-sm text-primary rounded-lg p-3 gap-2 hover:shadow-sm sm:flex-row sm:items-center sm:text-base">
+      class="flex flex-col justify-between items-start cursor-pointer bg-base-300 text-sm text-primary rounded-lg p-3 gap-2 hover:shadow-sm sm:flex-row sm:items-center sm:text-base"
+      (click)="onQuestionClick(question?.questionId || 0)">
+      
       <p class="w-full sm:w-3/5"> {{ question.question }} </p>
 
       <div class="flex flex-row w-full justify-between sm:w-2/5">

@@ -1,7 +1,7 @@
 @if (breadcrumbs().length > 0) {
   <div class="breadcrumbs text-sm">
     <ul>
-      @for (breadcrumb of breadcrumbs(); track breadcrumb.url; let last = $last) {
+      @for (breadcrumb of breadcrumbs(); track $index; let last = $last) {
         <li>
           @if (!last) {
             <a [routerLink]="breadcrumb.url" 

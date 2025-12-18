@@ -1,0 +1,8 @@
+<section class="flex flex-col text-accent rounded-lg gap-5">
+    <app-header [subtitle]="currentQuestion()?.text || ''"
+                [titleClass]="'font-semibold'"
+                [subtitleClass]="'text-base-content/70 font-normal'"
+                (backClick)="goBack()" />
+
+    
+</section>

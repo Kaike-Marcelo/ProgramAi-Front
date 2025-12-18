@@ -5,3 +5,20 @@ export interface ModuleDetailsResponseDto {
     moduleName: string;
     topics: TopicsModuleResponseDto[];
 }
+
+export interface ChallengeQuestionDetailsResponseDto {
+    id: number,
+    text: string,
+    scoreBase: number,
+    startAt: string,
+    endAt: string,
+    attempt: AttemptChallengeResponseDto
+}
+
+export interface AttemptChallengeResponseDto {
+    submittedCode: string,
+    aiHint: string,
+    aiFeedback: string,
+    aiScore: number,
+    createdAt: string
+}

@@ -20,3 +20,20 @@ export interface QuestionsTopic {
     startAt: string,
     endAt: string,
 }
+
+export interface ChallengeQuestionDetails {
+    id: number,
+    text: string,
+    scoreBase: number,
+    startAt: string,
+    endAt: string,
+    attempt: AttemptChallenge
+}
+
+export interface AttemptChallenge {
+    submittedCode: string,
+    aiHint: string,
+    aiFeedback: string,
+    aiScore: number,
+    createdAt: string
+}

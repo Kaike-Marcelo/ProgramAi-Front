@@ -1,12 +1,12 @@
 import { Component, inject, ViewChild } from '@angular/core';
-import { ModalComponent } from '../../../../../shared/components/simple-components/modal/modal.component';
+import { ModalComponent } from '../../../../../../shared/components/simple-components/modal/modal.component';
 import { FormBuilder } from '@angular/forms';
-import { Module } from '../../../../../core/models/module.model';
-import { MODULES_IMPORTS } from '../../helpers/imports';
-import { INPUT_STYLES } from '../../../../../shared/styles/input-styles';
-import { ModulesActions } from '../../action/modules.actions';
-import { ModulesStore } from '../../store/modules.store';
-import { RequestUserModule } from '../../../../../core/dtos/request/request-module.model';
+import { Module } from '../../../../../../core/models/module.model';
+import { MODULES_IMPORTS } from '../../../helpers/imports';
+import { INPUT_STYLES } from '../../../../../../shared/styles/input-styles';
+import { ModulesActions } from '../../../action/modules.actions';
+import { ModulesStore } from '../../../store/modules.store';
+import { RequestUserModule } from '../../../../../../core/dtos/request/request-module.model';
 
 @Component({
   selector: 'app-register-modules',

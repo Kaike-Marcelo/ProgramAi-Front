@@ -6,8 +6,9 @@ import { Home } from './modules/learner/home/home';
 import { LearnerContainer } from './modules/learner/learner-container/learner-container';
 import { authGuard } from './core/guards/auth.guard';
 import { Ranking } from './modules/learner/ranking/ranking';
-import { ListModules } from './modules/learner/challenges/modules/list-modules/list-modules';
-import { Topics } from './modules/learner/challenges/topics/topics';
+import { ListModules } from './modules/learner/challenges/components/modules/list-modules/list-modules';
+import { Topics } from './modules/learner/challenges/components/topics/topics';
+import { Challenge } from './modules/learner/challenges/components/challenge/challenge';
 
 export const routes: Routes = [
     {
@@ -52,9 +53,19 @@ export const routes: Routes = [
                         data: { breadcrumb: '' }
                     },
                     {
-                        path: 'topics/:moduleId',
-                        component: Topics,
+                        path: ':moduleId',
                         data: { breadcrumb: 'Tópicos' },
+                        children: [
+                            {
+                                path: '',
+                                component: Topics,
+                            },
+                            {
+                                path: 'challenge/:questionId',
+                                component: Challenge,
+                                data: { breadcrumb: 'Desafio' }
+                            },
+                        ]
                     },
                 ],
             },

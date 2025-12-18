@@ -1,0 +1,24 @@
+<section class="flex flex-col text-accent rounded-lg gap-5">
+
+    <app-header [title]="'Selecione o desafio que deseja desenvolver.'"
+                [useHtmlSubtitle]="true"
+                [subtitleHtml]="subtitleHtml"
+                [showProgress]="true"
+                [progressIcon]="'devicon-' + getLowercaseName(moduleDetails()?.moduleName || '') + '-plain'"
+                [progressValue]="progress()"
+                (backClick)="goBack()" />
+
+    <div>
+        @if (loading()) {
+        <div class="fixed inset-0 flex items-center justify-center bg-accent/20 z-50">
+            <span class="loading loading-spinner text-secondary size-16"></span>
+        </div>
+        }
+
+        @for (topic of moduleDetails()?.topics; track $index) {
+        <app-accordion [data]="topic" 
+                       (topicClick)="onTopicClick($event)" 
+                       (questionClick)="onQuestionClick($event)" />
+        }
+    </div>
+</section>
