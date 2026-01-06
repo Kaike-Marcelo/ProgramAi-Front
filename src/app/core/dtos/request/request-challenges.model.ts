@@ -16,3 +16,9 @@ export interface RequestSubmitQuestion {
     questionId: number;
     code: string;
 }
+
+export interface RequestTrainingProgress {
+    moduleId: number;
+    maxQuestions?: number;
+    randomQuestions?: boolean;
+}

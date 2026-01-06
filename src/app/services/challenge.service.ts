@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { MappedResponse } from '../core/interfaces/mapped-response.interface';
 import { environment } from '../../environments/environment';
 import { mapSimpleApiResponse } from '../core/operators/map-simple-api-response.operator';
-import { RequestChallengeQuestions, RequestModuleDetails, RequestQuestionDetailed, RequestSubmitQuestion } from '../core/dtos/request/request-challenges.model';
-import { ChallengeQuestionDetailsResponseDto, HintQuestionResponseDto, ModuleDetailsResponseDto } from '../core/dtos/response/challenges/challenges-response-dto';
+import { RequestChallengeQuestions, RequestModuleDetails, RequestQuestionDetailed, RequestSubmitQuestion, RequestTrainingProgress } from '../core/dtos/request/request-challenges.model';
+import { ChallengeQuestionDetailsResponseDto, HintQuestionResponseDto, ModuleDetailsResponseDto, TrainingProgressResponseDto } from '../core/dtos/response/challenges/challenges-response-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,12 @@ export class ChallengeService {
 
   getQuestionDetailed(request: RequestQuestionDetailed): Observable<MappedResponse<ChallengeQuestionDetailsResponseDto>> {
     return this.#http.post<MappedResponse<ChallengeQuestionDetailsResponseDto>>(`${environment.apiUrl}/challenge/questions/detailed`, request).pipe(
+      mapSimpleApiResponse()
+    );
+  }
+
+  getTrainingProgress(request: RequestTrainingProgress) {
+    return this.#http.post<MappedResponse<TrainingProgressResponseDto>>(`${environment.apiUrl}/dashboard/training-progress`, request).pipe(
       mapSimpleApiResponse()
     );
   }

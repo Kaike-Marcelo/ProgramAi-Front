@@ -26,3 +26,8 @@ export interface AttemptChallengeResponseDto {
 export interface HintQuestionResponseDto {
     hint: string;
 }
+
+export interface TrainingProgressResponseDto {
+    completedPercentage: number,
+    pendingPercentage: number
+}

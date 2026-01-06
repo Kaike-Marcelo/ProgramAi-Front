@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { ChallengeService } from "../../../../services/challenge.service";
 import { ChallengesStore } from "../store/challengs.store";
 import { SnackbarService } from "../../../../shared/services/snackbar.service";
-import { RequestChallengeQuestions, RequestModuleDetails, RequestQuestionDetailed, RequestSubmitQuestion } from "../../../../core/dtos/request/request-challenges.model";
+import { RequestChallengeQuestions, RequestModuleDetails, RequestQuestionDetailed, RequestSubmitQuestion, RequestTrainingProgress } from "../../../../core/dtos/request/request-challenges.model";
 import { tap } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
@@ -30,7 +30,24 @@ export class ChallengesActions {
         this.#store.setLoading(true);
         this.#challengesService.loadChallengeQuestions(request).subscribe({
             next: (response) => {
-                this.#store.setModuleDetails(response.data);
+                const currentModuleDetails = this.#store.snapshot.moduleDetails;
+
+                if (currentModuleDetails && response.data?.topics?.length > 0) {
+                    const updatedTopics = currentModuleDetails.topics.map(topic => {
+                        if (topic.topicId === request.topicId) {
+                            return {
+                                ...topic,
+                                ...response.data.topics[0],
+                            };
+                        }
+                        return topic;
+                    });
+
+                    this.#store.setModuleDetails({
+                        ...currentModuleDetails,
+                        topics: updatedTopics
+                    });
+                }
                 this.#store.setLoading(false);
                 this.#snackbarService.showSuccess(response.message);
             },
@@ -55,6 +72,20 @@ export class ChallengesActions {
                 this.#store.setLoading(false);
             }
         })
+    }
+
+    loadTrainingProgress(request: RequestTrainingProgress) {
+        this.#store.setLoading(true);
+        this.#challengesService.getTrainingProgress(request).subscribe({
+            next: (response) => {
+                this.#store.setProgress(response.data.completedPercentage);
+            },
+            error: (err: string[]) => {
+                this.#snackbarService.showError(err[0]);
+            }, complete: () => {
+                this.#store.setLoading(false);
+            }
+        });
     }
 
     submitQuestionAnswer(request: RequestSubmitQuestion) {

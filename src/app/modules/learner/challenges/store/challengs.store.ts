@@ -8,6 +8,7 @@ export class ChallengesStore {
 
     public readonly moduleDatails = computed(() => this.challengesState().moduleDetails);
     public readonly currentQuestion = computed(() => this.challengesState().currentQuestion);
+    public readonly progress = computed(() => this.challengesState().progress);
     public readonly loading = computed(() => this.challengesState().loading);
     public readonly hasError = computed(() => this.challengesState().hasError);
 
@@ -17,6 +18,10 @@ export class ChallengesStore {
 
     setCurrentQuestion(questionDetailed: ChallengeQuestionDetails) {
         this.challengesState.update(state => ({ ...state, currentQuestion: questionDetailed }))
+    }
+
+    setProgress(progress: number) {
+        this.challengesState.update(state => ({ ...state, progress }))
     }
 
     setLoading(loading: boolean) {
