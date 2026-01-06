@@ -4,6 +4,7 @@ import { LIST_MODULES_IMPORTS } from "../../../helpers/imports";
 import { ModulesStore } from "../../../store/modules.store";
 import { ModulesActions } from "../../../action/modules.actions";
 import { Router } from "@angular/router";
+import { LanguageService } from "../../../../../../shared/services/code-execution/language.service";
 
 @Component({
   selector: 'app-list-modules',
@@ -15,6 +16,7 @@ export class ListModules implements OnInit {
   #modulesStore = inject(ModulesStore);
   #modulesActions = inject(ModulesActions);
   #router = inject(Router);
+  #languageService = inject(LanguageService);
 
   r_loading = this.#modulesStore.loading;
   userModulesData = this.#modulesStore.userModules;
@@ -26,8 +28,8 @@ export class ListModules implements OnInit {
     this.#modulesActions.loadAllUserModules();
   }
 
-  getLowercaseName(name: string): string {
-    return name.toLowerCase().split(' ').join('');
+  getIconLanguage(name: string): string {
+    return this.#languageService.convertLanguageNameToIcon(name.toLowerCase().split(' ').join(''));
   }
 
   onModuleCardClick(id: string | null) {

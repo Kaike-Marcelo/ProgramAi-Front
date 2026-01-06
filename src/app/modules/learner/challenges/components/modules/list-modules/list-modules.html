@@ -16,7 +16,7 @@
         <app-modules-card [title]="module.moduleName" role="listitem" 
                           [stylesCard]="{
                             text: styleCardFromUser.text,
-                            icon: 'devicon-' + getLowercaseName(module.moduleName) + '-plain',
+                            icon: 'devicon-' + getIconLanguage(module.moduleName) + '-plain',
                             isNewModule: true,
                             background: styleCardFromUser.background,
                             border: styleCardFromUser.border,

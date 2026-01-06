@@ -18,6 +18,23 @@ export class LanguageService {
     'php': 'php'
   };
 
+  convertLanguageNameToIcon(language: string): string {
+    const icons: Record<string, string> = {
+      'c': 'c',
+      'c++': 'cplusplus',
+      'java': 'java',
+      'python': 'python',
+      'javascript': 'javascript',
+      'typescript': 'typescript',
+      'c#': 'csharp',
+      'go': 'go',
+      'rust': 'rust',
+      'ruby': 'ruby',
+      'php': 'php'
+    };
+    return icons[language] || 'javascript';
+  }
+
   getFileName(language: string): string {
     const fileNames: Record<string, string> = {
       'c': 'main.c',
