@@ -4,7 +4,7 @@
                 [useHtmlSubtitle]="true"
                 [subtitleHtml]="subtitleHtml"
                 [showProgress]="true"
-                [progressIcon]="'devicon-' + getLowercaseName(moduleDetails()?.moduleName || '') + '-plain'"
+                [progressIcon]="'devicon-' + getIconFromLanguage(moduleDetails()?.moduleName || '') + '-plain'"
                 [progressValue]="progress()"
                 (backClick)="goBack()" 
                 [loading]="loading()" />

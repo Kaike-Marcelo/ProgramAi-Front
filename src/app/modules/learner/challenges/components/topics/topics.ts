@@ -5,6 +5,7 @@ import { ChallengesActions } from '../../action/challenges.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestChallengeQuestions, RequestModuleDetails, RequestTrainingProgress } from '../../../../../core/dtos/request/request-challenges.model';
 import { Header } from "../shared/header/header";
+import { LanguageService } from '../../../../../shared/services/code-execution/language.service';
 
 @Component({
   selector: 'app-topics',
@@ -16,6 +17,7 @@ export class Topics implements OnInit, OnDestroy {
   #router = inject(Router);
   #store = inject(ChallengesStore);
   #actions = inject(ChallengesActions);
+  #languageService = inject(LanguageService);
 
   moduleId: string = '';
   moduleDetails = this.#store.moduleDatails;
@@ -76,8 +78,8 @@ export class Topics implements OnInit, OnDestroy {
     );
   }
 
-  getLowercaseName(name: string): string {
-    return name.toLowerCase().split(' ').join('');
+  getIconFromLanguage(name: string): string {
+    return this.#languageService.convertLanguageNameToIcon(name.toLowerCase().split(' ').join(''));
   }
 
   get subtitleHtml() {
