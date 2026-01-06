@@ -50,9 +50,5 @@ Execute o seguinte comando para instalar todas as dependências necessárias do 
 Para iniciar o servidor de desenvolvimento e executar o projeto, use o comando:
 
 ```bash
-ng serve
-```
-ou caso queira iniciar o aplicativo automaticamente em seu navegador padrão:
-```bash
-ng s -o
+npm start
 ```
