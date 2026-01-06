@@ -38,11 +38,11 @@ export const THEME_CODE_EDITOR_DEFAULT = {
         },
         {
             tag: t.keyword,
-            color: '#5c6166',
+            color: '#0cf49b',
         },
         {
             tag: t.operator,
-            color: '#5c6166',
+            color: '#0cf49b',
         },
         {
             tag: t.className,

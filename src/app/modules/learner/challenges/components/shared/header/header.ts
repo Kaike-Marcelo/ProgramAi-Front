@@ -16,6 +16,7 @@ export class Header {
   @Input() useHtmlSubtitle: boolean = false;
   @Input() titleClass: string = 'font-normal';
   @Input() subtitleClass: string = '';
+  @Input() loading: boolean = false;
 
   @Output() backClick = new EventEmitter<void>();
 

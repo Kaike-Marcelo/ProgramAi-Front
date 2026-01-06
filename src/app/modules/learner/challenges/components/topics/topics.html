@@ -6,7 +6,8 @@
                 [showProgress]="true"
                 [progressIcon]="'devicon-' + getLowercaseName(moduleDetails()?.moduleName || '') + '-plain'"
                 [progressValue]="progress()"
-                (backClick)="goBack()" />
+                (backClick)="goBack()" 
+                [loading]="loading()" />
 
     <div>
         @if (loading()) {

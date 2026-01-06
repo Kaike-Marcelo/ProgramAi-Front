@@ -3,8 +3,10 @@
   <app-header [subtitle]="currentQuestion()?.text || ''"
               [titleClass]="'font-semibold'"
               [subtitleClass]="'text-base-content/70 font-normal'"
-              (backClick)="goBack()" />
+              (backClick)="goBack()" 
+              [loading]="loading()"/>
 
+  @if (!loading()) {
   <div class="flex flex-col gap-3">
     <div class="flex-1 flex flex-col gap-3">
       <app-code-editor 
@@ -41,7 +43,8 @@
         class="h-full w-full" />
     
       <button (click)="executeCode()"
-              [disabled]="isExecuting() || language === '' || loading()"
+              [disabled]="isExecuting() || language === '' 
+                          || loading()"
               class="btn btn-secondary h-full sm:w-[200px] text-lg sm:text-[50px] rounded-lg flex flex-col items-center gap-0">
             @if (!isExecuting()) {
             <i class="ph-fill ph-play"></i>            
@@ -73,4 +76,14 @@
   </app-modal>
   
   </div>
+  } @else {
+  <div class="w-full text-sm bg-base-200 shadow-sm p-5 rounded-lg flex flex-col justify-center sm:text-md md:text-lg">
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+  </div>
+  }
 </section>
