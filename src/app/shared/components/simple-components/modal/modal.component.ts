@@ -8,21 +8,22 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 export class ModalComponent {
   @Input() title: string = '';
   @Input() actions: { label: string; action: () => void }[] = [];
+  @Input() modalClass: string = '';
+  @Input() titleClass: string = '';
+  @Input() contentClass: string = '';
 
   @ViewChild('modalRef') modalRef!: ElementRef<HTMLDialogElement>;
 
-open() {
-  this.modalRef.nativeElement?.showModal();
-}
+  open() {
+    this.modalRef.nativeElement?.showModal();
+  }
 
-close() {
-  this.modalRef.nativeElement?.close();
-}
-
+  close() {
+    this.modalRef.nativeElement?.close();
+  }
 
   onAction(btn: { action: () => void }) {
     btn.action();
     this.close();
   }
-
 }

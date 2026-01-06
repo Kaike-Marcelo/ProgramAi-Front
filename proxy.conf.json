@@ -1,0 +1,14 @@
+{
+    "/glot-api": {
+        "target": "https://glot.io",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/glot-api": "/api"
+        },
+        "headers": {
+            "Authorization": "Token ac1af016-9496-4801-a238-90b392ff1dbb"
+        },
+        "logLevel": "debug"
+    }
+}

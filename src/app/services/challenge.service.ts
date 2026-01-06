@@ -5,7 +5,7 @@ import { MappedResponse } from '../core/interfaces/mapped-response.interface';
 import { environment } from '../../environments/environment';
 import { mapSimpleApiResponse } from '../core/operators/map-simple-api-response.operator';
 import { RequestChallengeQuestions, RequestModuleDetails, RequestQuestionDetailed, RequestSubmitQuestion } from '../core/dtos/request/request-challenges.model';
-import { ChallengeQuestionDetailsResponseDto, ModuleDetailsResponseDto } from '../core/dtos/response/challenges/challenges-response-dto';
+import { ChallengeQuestionDetailsResponseDto, HintQuestionResponseDto, ModuleDetailsResponseDto } from '../core/dtos/response/challenges/challenges-response-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,12 @@ export class ChallengeService {
 
   getQuestionDetailed(request: RequestQuestionDetailed): Observable<MappedResponse<ChallengeQuestionDetailsResponseDto>> {
     return this.#http.post<MappedResponse<ChallengeQuestionDetailsResponseDto>>(`${environment.apiUrl}/challenge/questions/detailed`, request).pipe(
+      mapSimpleApiResponse()
+    );
+  }
+
+  getHintQuestion(request: RequestQuestionDetailed): Observable<MappedResponse<HintQuestionResponseDto>> {
+    return this.#http.post<MappedResponse<HintQuestionResponseDto>>(`${environment.apiUrl}/challenge/questions/hint`, request).pipe(
       mapSimpleApiResponse()
     );
   }

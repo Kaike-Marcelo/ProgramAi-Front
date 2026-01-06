@@ -3,6 +3,7 @@ import { ChallengeService } from "../../../../services/challenge.service";
 import { ChallengesStore } from "../store/challengs.store";
 import { SnackbarService } from "../../../../shared/services/snackbar.service";
 import { RequestChallengeQuestions, RequestModuleDetails, RequestQuestionDetailed, RequestSubmitQuestion } from "../../../../core/dtos/request/request-challenges.model";
+import { tap } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class ChallengesActions {
@@ -69,6 +70,33 @@ export class ChallengesActions {
                 this.#store.setLoading(false);
             }
         })
+    }
+
+    getHint(request: RequestQuestionDetailed) {
+        this.#store.setLoading(true);
+        return this.#challengesService.getHintQuestion(request).pipe(
+            tap({
+                next: (response) => {
+                    const currentQuestion = this.#store.snapshot.currentQuestion;
+                    if (currentQuestion) {
+                        const updatedQuestion = {
+                            ...currentQuestion, attempt: {
+                                ...currentQuestion.attempt,
+                                aiHint: response.data.hint
+                            }
+                        };
+                        this.#store.setCurrentQuestion(updatedQuestion);
+                    }
+                    this.#snackbarService.showSuccess(response.message);
+                },
+                error: (err: string[]) => {
+                    this.#snackbarService.showError(err[0]);
+                },
+                complete: () => {
+                    this.#store.setLoading(false);
+                }
+            })
+        );
     }
 
     clearState() {

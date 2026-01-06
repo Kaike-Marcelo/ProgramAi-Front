@@ -94,8 +94,12 @@ export class Topics implements OnInit, OnDestroy {
   }
 
   onQuestionClick(questionId: number) {
-    console.log('Navigating to question:', questionId);
-    this.#router.navigate([`learner/modules/${this.moduleId}/challenge/${questionId}`]);
+    const moduleName = this.moduleDetails()?.moduleName;
+    this.#router.navigate([`learner/modules/${this.moduleId}/challenge/${questionId}`],
+      {
+        queryParams: { moduleName }
+      }
+    );
   }
 
   getLowercaseName(name: string): string {

@@ -58,6 +58,7 @@ export const routes: Routes = [
                         children: [
                             {
                                 path: '',
+                                data: { breadcrumb: '' },
                                 component: Topics,
                             },
                             {

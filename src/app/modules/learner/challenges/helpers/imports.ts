@@ -6,6 +6,11 @@ import { ModalComponent } from "../../../../shared/components/simple-components/
 import { LabelComponent } from "../../../../shared/components/simple-components/label/label";
 import { RegisterModules } from "../components/modules/register-modules/register-modules";
 import { RouterOutlet } from "@angular/router";
+import { CodeEditorComponent } from "../../../../shared/components/complex-components/code-editor/code-editor";
+import { ConsoleOutput } from "../../../../shared/components/complex-components/console-output/console-output";
+import { ActionButtons } from "../components/challenge/components/action-buttons/action-buttons";
+import { ModalContent } from "../components/challenge/components/modal-content/modal-content";
+import { Header } from "../components/shared/header/header";
 
 export const MODULES_IMPORTS = [
     ReactiveFormsModule,
@@ -24,4 +29,13 @@ export const LIST_MODULES_IMPORTS = [
     ModulesCard,
     RegisterModules,
     RouterOutlet
+]
+
+export const CHALLENGE_IMPORTS = [
+    Header,
+    CodeEditorComponent,
+    ConsoleOutput,
+    ModalComponent,
+    ModalContent,
+    ActionButtons
 ]

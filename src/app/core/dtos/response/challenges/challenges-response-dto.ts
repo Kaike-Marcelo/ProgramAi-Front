@@ -22,3 +22,7 @@ export interface AttemptChallengeResponseDto {
     aiScore: number,
     createdAt: string
 }
+
+export interface HintQuestionResponseDto {
+    hint: string;
+}
