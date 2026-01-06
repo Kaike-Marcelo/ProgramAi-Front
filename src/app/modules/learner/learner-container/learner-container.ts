@@ -9,6 +9,7 @@ import { FloatingTopNavbar } from "../../../shared/components/complex-components
   selector: 'app-learner-container',
   imports: [RouterOutlet, LearnerMenu, BreadcrumbComponent, FloatingTopNavbar],
   templateUrl: './learner-container.html',
+  styleUrls: ['../../../shared/styles/scroll-bar.scss'],
 })
 export class LearnerContainer {
   #router = inject(Router);
