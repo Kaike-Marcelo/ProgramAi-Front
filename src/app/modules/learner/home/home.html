@@ -1,1 +1,99 @@
-<p>TO TRABALHANDO</p>
+<div class="flex flex-col gap-2">
+    <div class="flex flex-col tabs tabs-boxed bg-base-300 rounded-lg gap-2 mb-4 h-10 overflow-x-auto">
+    @for (item of modulesFromUser(); track $index;) {
+        <button class="tab flex items-center gap-2 transition-all duration-200"
+                [class]="activeTabIndex() === item.moduleId 
+                        ? 'tab-active bg-primary text-secondary font-semibold rounded-lg shadow hover:text-base-100' 
+                        : 'hover:bg-base-200 hover:text-base-content'"
+            (click)="setActiveTab(item.moduleId)" >
+
+            <i [class]="getIconFromLanguage(item.moduleName)" class="text-lg"></i>
+            <span class="truncate max-w-[150px]">{{ item.moduleName }}</span>
+        </button>
+    }
+    </div>
+
+
+    <div class="flex flex-row gap-2 overflow-auto">
+        <app-simple-card-dashboard [title]="'Média'" 
+                                    [value]="moduleSumary()?.trainingPerformance?.averageScore || 0"
+                                    class="flex-1" />
+
+        <app-simple-card-dashboard [title]="'Avaliações'"
+                                    [value]="moduleSumary()?.trainingPerformance?.completedChallenges || 0"
+                                    [percentage]="moduleSumary()?.trainingPerformance?.completedChallengesPercentage || 0" class="flex-1" />
+
+        <app-simple-card-dashboard [title]="'Erros de Implementação'"
+                                    [value]="moduleSumary()?.trainingPerformance?.failedChallenges || 0"
+                                    [percentage]="moduleSumary()?.trainingPerformance?.failedChallengesPercentage || 0" class="flex-1" />
+
+        <app-simple-card-dashboard [title]="'Desafios'"
+                                    [value]="moduleSumary()?.trainingPerformance?.totalChallenges || 0"
+                                    [percentage]="moduleSumary()?.trainingPerformance?.totalChallengesPercentage || 0" class="flex-1" />
+    </div>
+
+    <div class="flex flex-col h-[150vh] gap-2 sm:flex-row sm:h-[620px]">
+        <div class="w-full h-full flex flex-col gap-2 sm:w-1/2">
+            <div class="flex flex-col w-full bg-base-300 items-center justify-center rounded-lg p-4 gap-2">
+                <p class="text-xs text-primary font-semibold w-full sm:text-lg overflow-auto">Progresso do Treinamento</p>
+
+                <div class="flex flex-row w-full items-center justify-center sm:flex-row gap-5 overflow-auto">
+                    <div class="flex flex-col gap-2">
+                        <p class="flex flex-row items-center text-xs text-base-content/70 sm:text-sm">
+                            <i class="ph-fill ph-circle text-secondary"></i> 
+                            Feito ({{moduleSumary()?.trainingProgress?.completedPercentage || 0 }}%)
+                        </p>
+                        
+                        <p class="flex flex-row items-center text-xs text-base-content/70 sm:text-sm">
+                            <i class="ph-fill ph-circle text-accent/10"></i> 
+                            Pendente ({{moduleSumary()?.trainingProgress?.pendingPercentage || 0 }}%)
+                        </p>
+                    </div>
+                    <app-radial-progress [totalProgress]="moduleSumary()?.trainingProgress?.completedPercentage || 0" 
+                                         />
+                </div>
+            </div>
+
+            <div class="flex flex-col w-full h-full bg-base-300 p-4 rounded-lg gap-2 overflow-auto">
+                <p class="text-xs text-primary font-semibold w-full sm:text-lg">Conteúdo do Treinamento</p>
+                <div class="flex flex-col overflow-auto">
+
+                    @for (item of moduleSumary()?.trainingContent; track $index) {
+                    <div class="flex flex-row justify-between gap-2 text-xs sm:text-sm">
+                        <p class="w-full text-base-content sm:flex-1"> 
+                            {{ item.topicName }} 
+                        </p>
+
+                        <div class="flex flex-row w-[120px] items-center justify-end gap-2 sm:flex-row">
+                            <p [class]="item.completedPercentage > 0 ? 'text-base-content' 
+                                                                     : 'text-base-content/50'"> 
+                                {{item.completedPercentage }}% 
+                            </p>
+                            <p class="text-base-content/50">100%</p>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col w-full h-full bg-base-300 rounded-lg p-4 gap-2 sm:w-1/2 overflow-auto">
+            <p class="text-xs text-primary font-semibold w-full sm:text-lg">
+                Testes e Desafios
+            </p>
+
+            <div class="flex flex-col rounded-lg w-full gap-1">
+
+                @for (item of moduleSumary()?.trainingChallenges; track $index) {
+                <app-collapse-panel [icon]="(item.isCompleted ? 'ph-fill text-secondary' 
+                                                              : 'ph text-base-300/50') + 
+                                                              ' ph-check-circle text-3xl'" 
+                                    [title]="item.question"
+                                    [content]="item.question"
+                                    [id]="item.questionId" 
+                                    (clicked)="navigateToChallenge($event)" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

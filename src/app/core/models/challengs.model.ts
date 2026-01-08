@@ -37,3 +37,36 @@ export interface AttemptChallenge {
     aiScore: number,
     createdAt: string
 }
+
+export interface ModuleSumary {
+    trainingPerformance: TrainingPerformance,
+    trainingProgress: TrainingProgress,
+    trainingContent: TrainingContent[],
+    trainingChallenges: TrainingChallenges[]
+}
+
+export interface TrainingPerformance {
+    averageScore: number,
+    completedChallenges: number,
+    completedChallengesPercentage: number,
+    failedChallenges: number,
+    failedChallengesPercentage: number,
+    totalChallenges: number,
+    totalChallengesPercentage: number
+}
+
+export interface TrainingProgress {
+    completedPercentage: number,
+    pendingPercentage: number
+}
+
+export interface TrainingContent {
+    topicName: string,
+    completedPercentage: number
+}
+
+export interface TrainingChallenges {
+    questionId: number,
+    question: string,
+    isCompleted: boolean
+}

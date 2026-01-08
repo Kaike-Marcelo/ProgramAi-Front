@@ -1,12 +1,13 @@
 <div
-  class="radial-progress text-secondary border border-base-300"
+  class="radial-progress text-secondary border border-base-300
+         sm:[--size:8rem] md:[--size:10rem] lg:[--size:12rem]"
   [style.--value]="progress"
-  style="--size:10rem; --thickness:0.75rem;"
+  style="--thickness:0.75rem;"
   aria-valuenow="{{progress}}"
   role="progressbar"
 >
-  <div class="flex flex-col items-center justify-center text-primary">
-    <i class="{{icon}} text-6xl mb-2"></i>
-    <span class="text-lg font-semibold">{{progress}}%</span>
+  <div class="flex flex-col items-center justify-center text-primary gap-0">
+    <i class="{{icon}} text-2xl sm:text-5xl md:text-6xl mb-2"></i>
+    <span class="text-sm sm:text-base md:text-lg font-semibold">{{progress}}%</span>
   </div>
 </div>

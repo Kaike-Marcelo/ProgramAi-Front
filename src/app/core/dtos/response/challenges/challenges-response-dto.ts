@@ -27,7 +27,35 @@ export interface HintQuestionResponseDto {
     hint: string;
 }
 
+export interface ModuleSumaryResponseDto {
+    trainingPerformance: TrainingPerformanceResponseDto,
+    trainingProgress: TrainingProgressResponseDto,
+    trainingContent: TrainingContentResponseDto[],
+    trainingChallenges: TrainingChallengesResponseDto[]
+}
+
 export interface TrainingProgressResponseDto {
     completedPercentage: number,
     pendingPercentage: number
+}
+
+export interface TrainingPerformanceResponseDto {
+    averageScore: number,
+    completedChallenges: number,
+    completedChallengesPercentage: number,
+    failedChallenges: number,
+    failedChallengesPercentage: number,
+    totalChallenges: number,
+    totalChallengesPercentage: number
+}
+
+export interface TrainingContentResponseDto {
+    topicName: string,
+    completedPercentage: number
+}
+
+export interface TrainingChallengesResponseDto {
+    questionId: number,
+    question: string,
+    isCompleted: boolean
 }
