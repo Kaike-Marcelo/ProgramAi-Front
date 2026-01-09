@@ -18,6 +18,7 @@ export class DashboardActions {
                 this.#snackbarService.showSuccess(response.message);
             }, error: (err: string[]) => {
                 this.#snackbarService.showError(err[0]);
+                this.#store.setLoading(false);
             }, complete: () => {
                 this.#store.setLoading(false);
             }

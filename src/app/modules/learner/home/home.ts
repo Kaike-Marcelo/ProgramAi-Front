@@ -37,6 +37,9 @@ export class Home implements OnInit {
   });
 
   constructor() {
+    this.#modulesStore.clearState();
+    this.#dashboardStore.clearState();
+
     effect(() => {
       const modules = this.modulesFromUser();
       const activeTabId = this.activeTabIndex();
@@ -64,8 +67,13 @@ export class Home implements OnInit {
   }
 
   setActiveTab(moduleId: string): void {
+    if (this.activeTabIndex() === moduleId) return;
+
     this.activeTabIndex.set(moduleId);
-    this.#dashboardAction.loadModuleSumary({ moduleId: Number(moduleId) });
+    const moduleIdNumber = Number(moduleId);
+    if (!isNaN(moduleIdNumber) && moduleIdNumber > 0) {
+      this.#dashboardAction.loadModuleSumary({ moduleId: moduleIdNumber });
+    }
   }
 
   getIconFromLanguage(moduleName: string): string {

@@ -27,4 +27,8 @@ export class ModulesStore {
     get snapshot(): ModulesState {
         return this.ModulesState();
     }
+
+    clearState() {
+        this.ModulesState.set(initialModulesState);
+    }
 }

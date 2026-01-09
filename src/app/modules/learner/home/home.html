@@ -1,11 +1,27 @@
 <div class="flex flex-col gap-2">
-    <div class="flex flex-col tabs tabs-boxed bg-base-300 rounded-lg gap-2 mb-4 h-10 overflow-x-auto">
+
+@if (loadingModuleSumary() || loadingModulesFromUser()) {
+    <div class="skeleton h-10 w-full mb-4"></div>
+    <div class="flex flex-row gap-2">
+        @for (item of [0,1,2,3]; track $index ) {
+        <div class="skeleton h-20 w-1/4"></div>
+        }
+    </div>
+
+    <div class="flex flex-row gap-2">
+        @for (item of [0,1]; track $index ) {
+        <div class="skeleton h-[50vh] w-full"></div>
+        }
+    </div>
+
+} @else {
+    <div class="flex flex-row flex-nowrap items-center bg-base-300 rounded-lg gap-2 mb-4 p-1 overflow-x-auto">
     @for (item of modulesFromUser(); track $index;) {
-        <button class="tab flex items-center gap-2 transition-all duration-200"
+        <button class="btn btn-sm border-none shadow-none gap-2 transition-all duration-200 flex-none whitespace-nowrap"
                 [class]="activeTabIndex() === item.moduleId 
-                        ? 'tab-active bg-primary text-secondary font-semibold rounded-lg shadow hover:text-base-100' 
-                        : 'hover:bg-base-200 hover:text-base-content'"
-            (click)="setActiveTab(item.moduleId)" >
+                        ? 'bg-primary text-secondary font-semibold' 
+                        : 'bg-transparent font-normal hover:bg-base-200 hover:text-base-content'"
+                (click)="setActiveTab(item.moduleId)" >
 
             <i [class]="getIconFromLanguage(item.moduleName)" class="text-lg"></i>
             <span class="truncate max-w-[150px]">{{ item.moduleName }}</span>
@@ -96,4 +112,5 @@
             </div>
         </div>
     </div>
+}
 </div>
