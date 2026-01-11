@@ -14,3 +14,13 @@ export interface UserResponseDto {
     progress: ProgressResponseDto;
     tokens: TokenResponseDto;
 }
+
+export interface AuthenticatedUserResponseDto {
+    firstName: string;
+    lastName: string;
+    email: string;
+    codenameId: number;
+    codenameName: string;
+    createdAt: Date;
+    updatedAt: Date;
+}

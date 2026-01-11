@@ -1,0 +1,67 @@
+<app-game-frame class="w-full flex flex-col items-center"> 
+    <div class="relative group shrink-0">
+        <div class="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 bg-gradient-to-b from-neutral-content/50 to-neutral p-1 clip-octagon shadow-lg transform transition-transform group-hover:scale-105">
+            <div class="w-full h-full bg-primary clip-octagon flex items-center justify-center border-4 border-neutral/40">
+                <i class="ph ph-user text-5xl sm:text-6xl md:text-7xl text-base-100 opacity-90 group-hover:opacity-100 transition-opacity"></i>
+            </div>
+        </div>
+        <div class="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 bg-warning text-warning-content font-bold border-2 border-warning-content/50 w-6 h-6 sm:w-8 sm:h-8 text-xs sm:text-sm flex items-center justify-center rounded-full shadow-lg z-10">
+            LV
+        </div>
+    </div>
+
+    <div class="flex-1 w-full space-y-3 sm:space-y-4 min-w-0"> 
+        
+        <div class="relative w-full">
+            <div class="flex flex-col-reverse md:flex-row w-full items-center gap-2">
+                <div class="w-full bg-gradient-to-r from-neutral via-neutral/80 to-neutral border-2 border-neutral-content/30 border-b-base-100/50 rounded-md py-1 px-3 sm:px-4 shadow-md">
+                    <span class="block text-[10px] sm:text-xs text-neutral-content/60 uppercase tracking-widest font-bold text-center md:text-left">Nome</span>
+                    <div class="overflow-x-auto scrollbar-hide">
+                        <h2 class="min-h-5 text-sm sm:text-lg md:text-lg text-neutral-content font-mono uppercase tracking-wide drop-shadow-md text-center md:text-left whitespace-nowrap">
+                            {{ (user?.firstName + ' ' + user?.lastName) || 'Guerreiro Desconhecido' }}
+                        </h2>
+                    </div>
+                </div>
+                
+                <button class=" btn btn-neutral font-normal flex flex-col tooltip tooltip-right gap-0"
+                        data-tip="Editar Perfil"
+                        (click)="onEditProfile()">
+                    <i class="ph-fill ph-pencil-simple"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="relative flex items-center gap-2">
+            <div class="w-8 h-8 sm:w-10 sm:h-10 border-2 border-info rounded flex items-center justify-center shadow-lg shrink-0 bg-info-content">
+                <i class="ph-fill ph-identification-badge text-lg sm:text-xl text-info"></i>
+            </div>
+
+            <div class="flex-1 bg-primary border-2 border-info rounded-md overflow-hidden relative shadow-inner h-8 sm:h-10 flex items-center">
+                <div class="absolute inset-0 bg-gradient-to-r from-info/80 to-info/60 w-full"></div>
+                <div class="absolute top-0 w-full h-[2px] bg-white/20"></div>
+                
+                <div class="relative z-10 w-full overflow-x-auto scrollbar-hide px-2 sm:px-3">
+                    <span class="capitalize font-mono text-xs sm:text-sm text-base-100 font-semibold tracking-wider whitespace-nowrap block mix-blend-hard-light">
+                        {{ user?.codenameName || 'Sem Codinome' }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative flex items-center gap-2">
+            <div class="w-8 h-8 sm:w-10 sm:h-10 border-2 border-error rounded flex items-center justify-center shadow-lg shrink-0 bg-error">
+                <i class="ph-fill ph-envelope text-lg sm:text-xl text-error-content"></i>
+            </div>
+            <div class="flex-1 bg-base-100/60 border-2 border-error rounded-md overflow-hidden relative shadow-inner h-8 sm:h-10 flex items-center">
+                <div class="absolute inset-0 bg-gradient-to-r from-error/80 to-error/60 w-full"></div>
+                <div class="absolute top-0 w-full h-[2px] bg-white/20"></div>
+                
+                <div class="relative z-10 w-full overflow-x-auto scrollbar-hide px-2 sm:px-3">
+                    <span class="text-base-100 font-mono text-xs sm:text-sm whitespace-nowrap block mix-blend-hard-light">
+                            {{ user?.email || 'email@exemplo.com' }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-game-frame>

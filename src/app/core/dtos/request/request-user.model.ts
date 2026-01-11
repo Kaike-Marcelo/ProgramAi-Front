@@ -14,3 +14,9 @@ export interface RequestUser {
     progress: RequestProgress;
     tokens: RequestToken;
 }
+
+export interface RequestUpdateUser {
+    firstName: string;
+    lastName: string;
+    codenameId: number;
+}

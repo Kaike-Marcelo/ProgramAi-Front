@@ -11,4 +11,5 @@ export class PrimaryButtonComponent {
   @Input() textButton: string = 'Texto';
   @Input() icon?: string;
   @Input({ required: true }) r_loading!: Signal<boolean>;
+  @Input() buttonClass: string = 'btn-secondary'
 }

@@ -13,6 +13,16 @@ export interface User {
     tokens: Token;
 }
 
+export interface AuthenticatedUser {
+    firstName: string;
+    lastName: string;
+    email: string;
+    codenameId: number;
+    codenameName: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
 export interface Progress {
     codenameName: string;
     rankName: string;

@@ -1,0 +1,32 @@
+<div class="relative w-full h-sm">
+  <div (click)="toggleDropdown()" 
+       class="flex w-full items-center justify-between border-2 border-info rounded-md h-10 sm:h-12 px-3 cursor-pointer shadow-inner hover:brightness-110 transition-all">
+    <span [class.text-base-100]="selectedId" [class.opacity-60]="!selectedId" class="text-xs sm:text-base truncate">
+      {{ selectedLabel }}
+    </span>
+  </div>
+
+  @if (isOpen) {
+    <div class="absolute z-[100] mt-1 w-full bg-neutral border-2 border-info rounded-md shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+      
+      <div class="max-h-48 sm:max-h-64 overflow-y-auto custom-scrollbar">
+        @for (group of groups; track group.label) {
+          @if (group.label !== '') {
+            <div class="bg-info/10 px-3 py-1 text-[10px] uppercase font-bold text-info border-y border-info/20">
+            {{ group.label }}
+          </div>
+          } 
+          @for (option of group.options; track option.id) {
+            <div (click)="select(option)" 
+                 [class.bg-info/20]="option.id === selectedId"
+                 class="px-4 py-2 text-sm text-neutral-content hover:bg-info/40 cursor-pointer transition-colors border-b border-white/5 last:border-0">
+              {{ option.name }}
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="fixed inset-0 z-[90]" (click)="isOpen = false"></div>
+  }
+</div>

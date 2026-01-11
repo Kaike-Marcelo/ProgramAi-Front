@@ -9,6 +9,7 @@ import { Ranking } from './modules/learner/ranking/ranking';
 import { ListModules } from './modules/learner/challenges/components/modules/list-modules/list-modules';
 import { Topics } from './modules/learner/challenges/components/topics/topics';
 import { Challenge } from './modules/learner/challenges/components/challenge/challenge';
+import { UserProfile } from './modules/user-profile/user-profile';
 
 export const routes: Routes = [
     {
@@ -70,6 +71,11 @@ export const routes: Routes = [
                     },
                 ],
             },
+            {
+                path: 'profile',
+                component: UserProfile,
+                data: { breadcrumb: 'Perfil' }
+            }
         ]
     }
 ];

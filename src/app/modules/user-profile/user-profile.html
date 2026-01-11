@@ -1,0 +1,19 @@
+<div class="flex items-center justify-center p-2 sm:p-4 w-full">
+    @if (loading()) {
+        <div class="skeleton h-60 w-full"></div>
+    }@else {
+    @if (!isEditing) {
+        <app-profile-view [user]="user()"
+                          (editProfile)="toggleEditMode()"
+                          class="w-full"/>
+    } @else {
+        <app-profile-form class="w-full" 
+                          [user]="user()"
+                          [loading]="loading"
+                          [codenameNameList]="codenameList()"
+                          (cancelEditProfile)="toggleEditMode()"
+                          (submit)="onSubmitUpdate($event)"/>
+    }
+    }
+    
+</div>

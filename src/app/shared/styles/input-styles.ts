@@ -12,5 +12,12 @@ export const INPUT_STYLES = {
         border: "border-primary border-1 disabled:border-primary",
         label: "text-primary",
         error: "text-error",
+    },
+    darkNeutral: {
+        background: "bg-primary/40 disabled:bg-neutral/50",
+        text: "text-neutral-content disabled:text-neutral-content/50",
+        border: "border-neutral-content/30 disabled:border-neutral-content/20",
+        label: "text-neutral-content/70",
+        error: "text-error",
     }
 }

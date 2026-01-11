@@ -6,8 +6,10 @@ import { MappedResponse } from '../core/interfaces/mapped-response.interface';
 import { AchievementsResponseDto } from '../core/dtos/response/achievements/achievements-response-dto.model';
 import { mapSimpleApiResponse } from '../core/operators/map-simple-api-response.operator';
 import { RequestSignUp } from '../core/dtos/request/request-sign-up.model';
-import { UserResponseDto } from '../core/dtos/response/user-response-dto.model';
+import { AuthenticatedUserResponseDto, UserResponseDto } from '../core/dtos/response/user-response-dto.model';
 import { ApiResponseDto } from '../core/dtos/response/api-response-dto.model';
+import { RequestUpdateUser } from '../core/dtos/request/request-user.model';
+import { CodenameNameListResponseDto } from '../core/dtos/response/codename-name-response-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +23,27 @@ export class UserService {
     )
   }
 
+  getAuthenticatedUser(): Observable<MappedResponse<AuthenticatedUserResponseDto>> {
+    return this.#http.get<MappedResponse<AuthenticatedUserResponseDto>>(`${environment.apiUrl}/user/profile`).pipe(
+      mapSimpleApiResponse()
+    );
+  }
+
+  updateUser(request: RequestUpdateUser): Observable<MappedResponse<AuthenticatedUserResponseDto>> {
+    return this.#http.put<MappedResponse<AuthenticatedUserResponseDto>>(`${environment.apiUrl}/user/profile`, request).pipe(
+      mapSimpleApiResponse()
+    );
+  }
+
   getAchievements(): Observable<MappedResponse<AchievementsResponseDto>> {
     return this.#http.get<MappedResponse<AchievementsResponseDto>>(`${environment.apiUrl}/user/achievements`).pipe(
       mapSimpleApiResponse()
     )
+  }
+
+  getCodenameList(): Observable<MappedResponse<CodenameNameListResponseDto>> {
+    return this.#http.get<MappedResponse<CodenameNameListResponseDto>>(`${environment.apiUrl}/codename/list`).pipe(
+      mapSimpleApiResponse()
+    );
   }
 }
