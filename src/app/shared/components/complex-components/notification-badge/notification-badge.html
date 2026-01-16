@@ -32,7 +32,7 @@
                   <div class="badge badge-primary badge-xs"></div>
                 </div>
                 <div class="text-xs text-gray-500 mt-1">
-                  {{ notification.createdAt }}
+                  {{ notification.createdAt | date : 'short' }}
                 </div>
               </div>
               }

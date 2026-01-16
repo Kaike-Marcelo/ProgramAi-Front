@@ -17,9 +17,7 @@ export class NotificationActions {
             .subscribe({
                 next: (response) => {
                     this.#notificationStore.setNotifications(response.data);
-                    console.log('Notificações Carregadas: ', response.data);
                 }, error: (error: string[]) => {
-                    console.error('Erro ao carregar notificações: ', error);
                     this.#notificationStore.clearNotifications();
                 }
             })
@@ -32,9 +30,7 @@ export class NotificationActions {
             .subscribe({
                 next: (response) => {
                     this.#notificationStore.setNotifications(response.data);
-                    console.log('Notificações não lidas carregadas: ', response.data);
                 }, error: (error: string[]) => {
-                    console.error('Erro ao carregar notificações não lidas: ', error);
                     this.#notificationStore.clearNotifications();
                 }
             })
@@ -55,10 +51,8 @@ export class NotificationActions {
                             );
                             this.#notificationStore.setNotifications(updatedNotifications);
                         }
-                        console.log('Notificação marcada como lida: ', response.data);
                     }
                 }, error: (error: string[]) => {
-                    console.error('Erro ao marcar notificação como lida: ', error);
                     this.#snackbarService.showError(error[0]);
                 }
             })
@@ -76,10 +70,8 @@ export class NotificationActions {
                             notification => ({ ...notification, active: false })
                         );
                         this.#notificationStore.setNotifications(updatedNotifications);
-                        console.log('Todas as notificações marcadas como lidas: ', response.data);
                     }
                 }, error: (error: string[]) => {
-                    console.error('Erro ao marcar todas as notificações como lidas: ', error);
                     this.#snackbarService.showError(error[0]);
                 }
             })

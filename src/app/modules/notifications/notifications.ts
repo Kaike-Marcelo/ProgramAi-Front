@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { NotificationActions } from '../../shared/stores/notification/notification.actions';
 import { NotificationStore } from '../../shared/stores/notification/notification.store';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-notifications',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './notifications.html',
 })
 export class Notifications {

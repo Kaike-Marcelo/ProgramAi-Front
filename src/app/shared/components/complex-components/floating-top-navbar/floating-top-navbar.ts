@@ -4,10 +4,11 @@ import { AuthenticationService } from '../../../../services/authentication.servi
 import { DeviceService } from '../../../services/device.service';
 import { ScoreFormatPipe } from '../../../pipes/score-format-pipe';
 import { RouterLink } from "@angular/router";
+import { NotificationBadge } from "../notification-badge/notification-badge";
 
 @Component({
   selector: 'app-floating-top-navbar',
-  imports: [ScoreFormatPipe, RouterLink],
+  imports: [ScoreFormatPipe, RouterLink, NotificationBadge],
   templateUrl: './floating-top-navbar.html',
 })
 export class FloatingTopNavbar {

@@ -1,5 +1,6 @@
 <div class="fixed top-4 right-4 z-50">
   <div class="navbar bg-base-100/80 text-accent backdrop-blur-md shadow-md rounded-box border border-base-300/50">
+    <app-notification-badge />
 
     @if (isAuthenticated) {
     <div class="flex-1 px-4">
@@ -21,7 +22,6 @@
           </div>
         </div>
 
-        @if (deviceService.isMobile()) {
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
             <div class="avatar">
@@ -37,7 +37,7 @@
             <li><a (click)="logout()"> <i class="ph ph-sign-out"></i> Sair</a></li>
           </ul>
         </div>
-        }
+
       </div>
     </div>
 

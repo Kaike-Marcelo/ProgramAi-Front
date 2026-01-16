@@ -36,7 +36,7 @@
                 <p class="text-base-content">{{ notification.message }}</p>
                 <div class="card-actions justify-between items-center">
                     <span class="text-sm text-base-content/60">
-                        {{ notification.createdAt }}
+                        {{ notification.createdAt | date : 'short' }}
                     </span>
 
                     @if (notification.active) {

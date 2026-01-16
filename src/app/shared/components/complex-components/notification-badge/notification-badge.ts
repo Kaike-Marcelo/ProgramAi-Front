@@ -2,10 +2,11 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { NotificationStore } from '../../../stores/notification/notification.store';
 import { NotificationActions } from '../../../stores/notification/notification.actions';
 import { RouterLink } from "@angular/router";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-notification-badge',
-  imports: [RouterLink],
+  imports: [RouterLink, DatePipe],
   templateUrl: './notification-badge.html',
 })
 export class NotificationBadge implements OnInit {

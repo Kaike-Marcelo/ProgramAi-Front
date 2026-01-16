@@ -3,11 +3,10 @@ import { LEARNER_MENU } from './menu-item';
 import { MenuLinkButtonComponent } from "../../../../shared/components/complex-components/menu-link-button/menu-link-button";
 import { MenuItem } from '../../../../core/interfaces/menu-item.interface';
 import { AuthenticationService } from '../../../../services/authentication.service';
-import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-learner-menu',
-  imports: [MenuLinkButtonComponent, RouterLink],
+  imports: [MenuLinkButtonComponent],
   templateUrl: './learner-menu.html',
 })
 export class LearnerMenu {
