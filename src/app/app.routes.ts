@@ -10,6 +10,7 @@ import { ListModules } from './modules/learner/challenges/components/modules/lis
 import { Topics } from './modules/learner/challenges/components/topics/topics';
 import { Challenge } from './modules/learner/challenges/components/challenge/challenge';
 import { UserProfile } from './modules/user-profile/user-profile';
+import { Notifications } from './modules/notifications/notifications';
 
 export const routes: Routes = [
     {
@@ -75,6 +76,11 @@ export const routes: Routes = [
                 path: 'profile',
                 component: UserProfile,
                 data: { breadcrumb: 'Perfil' }
+            },
+            {
+                path: 'notifications',
+                component: Notifications,
+                data: { breadcrumb: 'Notificações' }
             }
         ]
     }
