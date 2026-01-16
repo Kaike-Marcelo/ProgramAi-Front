@@ -1,4 +1,4 @@
-<div class="dropdown dropdown-start">
+<div class="dropdown" [class]="dropdownPosition + ' ' + dropdownDirection">
     <button role="button" 
             class="btn btn-circle"
             [class]="buttonClass"
@@ -15,37 +15,37 @@
     </button>
       
       <div tabindex="0" class="card card-compact dropdown-content z-[1] w-64 bg-base-100 shadow">
-        <div class="card-body">
+        <div class="card-body rounded-full">
           
           <div class="max-h-60 overflow-y-auto">
             
             @for (notification of notifications(); track notification.id) {
               @if(notification.active) {
-              <div class="p-2 hover:bg-base-200 rounded cursor-pointer"
-                   (click)="markAsRead(notification.id)" >
+              <div class="p-2 rounded cursor-pointer"
+                   (click)="markAsRead(notification.id)">
 
-                <div class="flex justify-between items-start">
+                <div class="flex justify-between items-start text-base-content">
                   <div>
                     <div class="font-bold">{{ notification.title }}</div>
                     <div class="text-sm">{{ notification.message }}</div>
                   </div>
                   <div class="badge badge-primary badge-xs"></div>
                 </div>
-                <div class="text-xs text-gray-500 mt-1">
+                <div class="text-xs text-base-content/60 mt-1">
                   {{ notification.createdAt | date : 'short' }}
                 </div>
               </div>
               }
             }
             @empty {
-              <div class="text-center py-4">
+              <div class="text-center py-4 text-base-content/80">
                 Nenhuma notificação não lida
               </div>
             }
           </div>
           
           <div class="card-actions justify-between mt-2">
-            <button class="btn btn-sm btn-ghost" routerLink="/learner/notifications">
+            <button class="btn btn-sm btn-ghost text-primary" routerLink="/learner/notifications">
               Ver todas
             </button>
 

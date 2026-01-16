@@ -1,41 +1,39 @@
-<div class="fixed top-4 right-4 z-50">
+<div class="fixed top-1 right-4 z-50">
   <div class="navbar bg-base-100/80 text-accent backdrop-blur-md shadow-md rounded-box border border-base-300/50">
-    <app-notification-badge />
 
     @if (isAuthenticated) {
-    <div class="flex-1 px-4">
-      <div class="flex items-center gap-3">
-        <div class="flex flex-row gap-1 font-semibold capitalize">
-          <span>{{ user?.firstName }}</span>
-          @if (!deviceService.isMobile()) {
-          <span>{{ user?.lastName }}</span>
-          }
-        </div>
+    @if (!deviceService.isMobile()) {
+    <app-notification-badge class="hidden md:block"/>
+    }
+
+    <div class="flex-1 px-4 flex items-center gap-3 text-sm sm:text-base">
+      <div class="flex flex-row gap-1 font-semibold capitalize">
+        <span>{{ user?.firstName }}</span>
+        @if (!deviceService.isMobile()) {
+        <span>{{ user?.lastName }}</span>
+        }
       </div>
     </div>
 
-    <div class="flex-none px-4">
+    <div class="flex-none">
       <div class="flex items-center gap-2">
-        <div class="badge badge-secondary w-25 p-4">
-          <div class="flex flex-col items-center">
-            <span class="text-lg">{{ (user?.progress?.totalScore || 0) | scoreFormat }}</span>
+        <div class="badge badge-secondary p-4">
+          <div class="flex flex-col items-center text-base sm:text-lg">
+            <span>{{ (user?.progress?.totalScore || 0) | scoreFormat }}</span>
           </div>
         </div>
 
         <div class="dropdown dropdown-end">
-          <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-            <div class="avatar">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center">
-                <img [src]="'https://ui-avatars.com/api/?name=' + fullName"
-                  alt="Foto de Perfil">
-              </div>
-            </div>
+          <div tabindex="0" role="button" class="btn btn-ghost pl-0 pr-0 rounded-full">
+            <i class="ph-fill ph-user-circle text-3xl text-primary"></i>
+            <i class="ph-fill ph-caret-down text-xs text-primary"></i>
           </div>
 
-          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-47">
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-30">
             <li><a routerLink="/learner/profile"> <i class="ph ph-user"></i> Perfil</a></li>
-            <li><a (click)="logout()"> <i class="ph ph-sign-out"></i> Sair</a></li>
+            <li class="block lg:hidden"><a (click)="logout()"> <i class="ph ph-sign-out"></i> Sair</a></li>
           </ul>
+
         </div>
 
       </div>

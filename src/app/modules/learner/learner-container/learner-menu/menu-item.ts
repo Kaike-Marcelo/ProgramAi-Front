@@ -1,7 +1,7 @@
 export const LEARNER_MENU = [
     {
         icon: 'ph ph-house',
-        name: 'Home',
+        name: 'Início',
         route: 'learner/home',
     },
     {

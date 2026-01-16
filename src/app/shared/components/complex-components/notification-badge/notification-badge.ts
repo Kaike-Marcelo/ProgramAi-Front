@@ -11,6 +11,9 @@ import { DatePipe } from '@angular/common';
 })
 export class NotificationBadge implements OnInit {
   @Input() buttonClass: string = 'btn-ghost';
+  @Input() dropdownPosition: 'dropdown-start' | 'dropdown-end' | 'dropdown-center' = 'dropdown-start';
+  @Input() dropdownDirection: 'dropdown-bottom' | 'dropdown-top' | 'dropdown-left' | 'dropdown-right' = 'dropdown-bottom';
+
 
   #notificationStore = inject(NotificationStore);
   #notificationActions = inject(NotificationActions);
