@@ -30,35 +30,38 @@ export class ChallengesActions {
 
     loadChallengeQuestions(request: RequestChallengeQuestions) {
         this.#store.setLoading(true);
-        this.#challengesService.loadChallengeQuestions(request).subscribe({
-            next: (response) => {
-                const currentModuleDetails = this.#store.snapshot.moduleDetails;
+        return this.#challengesService.loadChallengeQuestions(request)
+            .pipe(
+                finalize(() => { this.#store.setLoading(false); }),
+                tap({
+                    next: (response) => {
+                        const currentModuleDetails = this.#store.snapshot.moduleDetails;
 
-                if (currentModuleDetails && response.data?.topics?.length > 0) {
-                    const updatedTopics = currentModuleDetails.topics.map(topic => {
-                        if (topic.topicId === request.topicId) {
-                            return {
-                                ...topic,
-                                ...response.data.topics[0],
-                            };
+                        if (currentModuleDetails && response.data?.topics?.length > 0) {
+                            const updatedTopics = currentModuleDetails.topics.map(topic => {
+                                if (topic.topicId === request.topicId) {
+                                    return {
+                                        ...topic,
+                                        ...response.data.topics[0],
+                                    };
+                                }
+                                return topic;
+                            });
+
+                            this.#store.setModuleDetails({
+                                ...currentModuleDetails,
+                                topics: updatedTopics
+                            });
                         }
-                        return topic;
-                    });
-
-                    this.#store.setModuleDetails({
-                        ...currentModuleDetails,
-                        topics: updatedTopics
-                    });
-                }
-                this.#store.setLoading(false);
-                this.#snackbarService.showSuccess(response.message);
-            },
-            error: (err: string[]) => {
-                this.#snackbarService.showError(err[0]);
-                this.#store.setLoading(false);
-                // this.#store.setError(true);
-            }
-        })
+                        this.#store.setLoading(false);
+                        this.#snackbarService.showSuccess(response.message);
+                    },
+                    error: (err: string[]) => {
+                        this.#snackbarService.showError(err[0]);
+                        this.#store.setLoading(false);
+                    }
+                })
+            );
     }
 
     loadQuestionDetailed(request: RequestQuestionDetailed) {

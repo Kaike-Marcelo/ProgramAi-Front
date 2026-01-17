@@ -42,13 +42,7 @@ export class Topics implements OnInit, OnDestroy {
         includeEmptyTopics: true
       }
       this.#actions.loadModuleDetails(request);
-
-      const progressRequest: RequestTrainingProgress = {
-        moduleId: Number(this.moduleId),
-        maxQuestions: 0,
-        randomQuestions: false
-      }
-      this.#actions.loadTrainingProgress(progressRequest);
+      this.#actions.loadTrainingProgress(this.getRequestProgress());
     })
   }
 
@@ -66,7 +60,13 @@ export class Topics implements OnInit, OnDestroy {
       moduleId: Number(this.moduleId),
       topicId: id,
     }
-    this.#actions.loadChallengeQuestions(request);
+    this.#actions.loadChallengeQuestions(request).subscribe(
+      {
+        next: () => {
+          this.#actions.loadTrainingProgress(this.getRequestProgress());
+        }
+      }
+    );
   }
 
   onQuestionClick(questionId: number) {
@@ -80,6 +80,14 @@ export class Topics implements OnInit, OnDestroy {
 
   getIconFromLanguage(name: string): string {
     return this.#languageService.convertLanguageNameToIcon(name.toLowerCase().split(' ').join(''));
+  }
+
+  getRequestProgress(): RequestTrainingProgress {
+    return {
+      moduleId: Number(this.moduleId),
+      maxQuestions: 0,
+      randomQuestions: false
+    }
   }
 
   get subtitleHtml() {
