@@ -33,14 +33,13 @@ export class UserActions {
     updateUser(request: RequestUpdateUser) {
         this.#userStore.setLoading(true);
         return this.#userService.updateUser(request).pipe(
+            finalize(() => this.#userStore.setLoading(false)),
             tap({
                 next: (response) => {
                     this.#userStore.setUser(response.data);
                     this.#snackbarService.showSuccess(response.message);
                 }, error: (error: string[]) => {
                     this.#snackbarService.showError(error[0]);
-                }, finalize: () => {
-                    this.#userStore.setLoading(false)
                 }
             })
         );
