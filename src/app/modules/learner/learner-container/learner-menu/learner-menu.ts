@@ -23,15 +23,6 @@ export class LearnerMenu {
 
   onMenuClick(item: MenuItem) {
     this.menuItemSelected.emit(item);
-    this.toggleDrawer();
-  }
-
-  toggleDrawer() {
-    const drawerCheckbox = document.getElementById('my-drawer-2') as HTMLInputElement;
-
-    if (drawerCheckbox) {
-      drawerCheckbox.checked = !drawerCheckbox.checked;
-    }
   }
 
   logout() {

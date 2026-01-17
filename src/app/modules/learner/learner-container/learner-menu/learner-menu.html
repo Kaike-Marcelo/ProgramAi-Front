@@ -1,66 +1,46 @@
 @if (deviceService.isMobile()) {
 
 <div class="dock bg-neutral text-neutral-content z-50 flex flex-wrap justify-around w-full">
-   <button class="flex-1 min-w-0 p-2 text-center"
+   
+   @for(item of menuItems; track $index) {
+   <button class="flex-1 min-w-0 p-2 text-center flex flex-col items-center justify-center"
+           [routerLink]="'/'+ [item.route]" 
            routerLinkActive="dock-active"
-           [routerLink]="'/'+ [menuItems[0].route]"
            [routerLinkActiveOptions]="{ exact: true }">
-
-      <i [class]="'ph-bold ph-' + menuItems[0].icon + ' text-lg block mx-auto'"></i>
-      <span class="dock-label block text-xs truncate"> {{ menuItems[0].name }} </span>
+      <i [class]="'ph ph-' + item.icon + ' text-lg'"></i>
+      <span class="text-xs mt-1 truncate px-1">{{ item.name }}</span>
    </button>
+   }
 
-   <button class="flex-1 min-w-0 p-2 text-center"
-           routerLinkActive="dock-active"
-           [routerLink]="'/'+ [menuItems[1].route]"
-           [routerLinkActiveOptions]="{ exact: true }">
-
-      <i [class]="'ph ph-' + menuItems[1].icon + ' text-lg block mx-auto'"></i>
-      <span class="dock-label block text-xs truncate"> {{ menuItems[1].name }} </span>
-   </button>
-
-   <button class="flex-1 min-w-0 p-2 text-center"
-           routerLinkActive="dock-active"
-           [routerLink]="'/'+ [menuItems[2].route]"
-           [routerLinkActiveOptions]="{ exact: true }">
-
-      <i [class]="'ph-bold ph-' + menuItems[2].icon + ' text-lg block mx-auto'"></i>
-      <span class="dock-label block text-xs truncate"> {{ menuItems[2].name }} </span>
-   </button>
-
-   <app-notification-badge class="flex-1 min-w-0 p-2" [dropdownPosition]="'dropdown-end'" [dropdownDirection]="'dropdown-top'" />
+   <app-notification-badge class="flex-1 min-w-0 p-2" 
+                           [dropdownPosition]="'dropdown-end'"
+                           [dropdownDirection]="'dropdown-top'" />
 </div>
 
 } @else {
-<div class="drawer lg:drawer-open">
-   <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-
-   <div class="drawer-content flex flex-col">
-      <button class="btn btn-primary drawer-button lg:hidden w-auto self-start ml-4 m-4" aria-label="Toggle drawer"
-              (click)="toggleDrawer()">
-              <i class="ph-bold ph-list"></i>
-      </button>
-   </div>
-
-   <div class="drawer-side z-100">
-      <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
-
-      <ul class="menu bg-primary py-15 px-0.5 text-base-content min-h-full w-80 p-4">
-         <div class="card bg-transparent rounded-box h-20 w-full flex items-start justify-center overflow-hidden ml-2">
+<div class="flex min-h-screen bg-base-200">
+   <div class="z-40 h-screen w-20 lg:w-80 transition-all duration-300 bg-primary flex-none overflow-y-auto">
+      <ul class="menu text-base-content h-full p-4 lg:py-15 px-0 lg:px-0.5 flex flex-col">
+         
+         <div class="card bg-transparent rounded-box h-20 w-full flex items-center lg:items-start justify-center overflow-hidden ml-2">
             <a class="flex items-center mb-5">
                <img src="/images/logo/logo_04.png" class="h-12 me-3" alt="Logo" />
-               <img src="/images/logo/logo_06.png" class="h-12 me-3" alt="Logo" />
+               <img src="/images/logo/logo_06.png" class="h-12 me-3 hidden lg:block" alt="Logo" />
             </a>
          </div>
 
-         <div class="space-y-2 py-12 w-full">
+         <div class="py-5 lg:py-10 w-full flex flex-col gap-5 lg:gap-0">
             @for(item of menuItems; track $index) {
-            <app-menu-link-button [icon]="item.icon" [name]="item.name" (click)="onMenuClick(item)" />
+               <app-menu-link-button [icon]="item.icon" 
+                                     [name]="item.name" 
+                                     (click)="onMenuClick(item)" />
             }
          </div>
 
          <div class="divider"></div>
-         <app-menu-link-button [icon]="'ph-bold ph-sign-out'" [name]="'Sair'" (click)="logout()" />
+         <app-menu-link-button [icon]="'ph-bold ph-sign-out'" 
+                               [name]="'Sair'" 
+                               (click)="logout()" />
       </ul>
    </div>
 </div>

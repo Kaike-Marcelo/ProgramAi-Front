@@ -10,7 +10,7 @@ import { DeviceService } from '../../../shared/services/device.service';
   selector: 'app-learner-container',
   imports: [RouterOutlet, LearnerMenu, BreadcrumbComponent, FloatingTopNavbar],
   templateUrl: './learner-container.html',
-  styleUrls: ['../../../shared/styles/scroll-bar.scss'],
+  styleUrl: '../../../shared/styles/scroll-bar.scss',
 })
 export class LearnerContainer {
   #router = inject(Router);
