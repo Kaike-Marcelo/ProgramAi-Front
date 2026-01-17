@@ -3,11 +3,13 @@ import { ChallengeService } from "../../../../services/challenge.service";
 import { ChallengesStore } from "../store/challengs.store";
 import { SnackbarService } from "../../../../shared/services/snackbar.service";
 import { RequestChallengeQuestions, RequestModuleDetails, RequestQuestionDetailed, RequestSubmitQuestion, RequestTrainingProgress } from "../../../../core/dtos/request/request-challenges.model";
-import { tap } from "rxjs";
+import { finalize, tap } from "rxjs";
+import { AuthenticationService } from "../../../../services/authentication.service";
 
 @Injectable({ providedIn: 'root' })
 export class ChallengesActions {
     #challengesService = inject(ChallengeService);
+    #authenticationService = inject(AuthenticationService);
     #store = inject(ChallengesStore);
     #snackbarService = inject(SnackbarService);
 
@@ -90,17 +92,23 @@ export class ChallengesActions {
 
     submitQuestionAnswer(request: RequestSubmitQuestion) {
         this.#store.setLoading(true);
-        this.#challengesService.submitQuestionAnswer(request).subscribe({
-            next: (response) => {
-                this.#store.setCurrentQuestion(response.data);
-                this.#store.setLoading(false);
-                this.#snackbarService.showSuccess(response.message);
-            },
-            error: (err: string[]) => {
-                this.#snackbarService.showError(err[0]);
-                this.#store.setLoading(false);
-            }
-        })
+        this.#challengesService.submitQuestionAnswer(request)
+            .pipe(finalize(() => { this.#store.setLoading(false); }))
+            .subscribe({
+                next: (response) => {
+                    this.#store.setCurrentQuestion(response.data);
+
+                    const user = this.#authenticationService.getLoggedInUser();
+                    if (user) {
+                        user.progress.totalScore += response.data.attempt.aiScore;
+                        this.#authenticationService.updateUserLocalStorage(user);
+                    }
+                    this.#snackbarService.showSuccess(response.message);
+                },
+                error: (err: string[]) => {
+                    this.#snackbarService.showError(err[0]);
+                }
+            })
     }
 
     getHint(request: RequestQuestionDetailed) {
