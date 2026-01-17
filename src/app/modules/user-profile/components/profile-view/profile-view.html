@@ -12,23 +12,21 @@
 
     <div class="flex-1 w-full space-y-3 sm:space-y-4 min-w-0"> 
         
-        <div class="relative w-full">
-            <div class="flex flex-col-reverse md:flex-row w-full items-center gap-2">
-                <div class="w-full bg-gradient-to-r from-neutral via-neutral/80 to-neutral border-2 border-neutral-content/30 border-b-base-100/50 rounded-md py-1 px-3 sm:px-4 shadow-md">
-                    <span class="block text-[10px] sm:text-xs text-neutral-content/60 uppercase tracking-widest font-bold text-center md:text-left">Nome</span>
-                    <div class="overflow-x-auto scrollbar-hide">
-                        <h2 class="min-h-5 text-sm sm:text-lg md:text-lg text-neutral-content font-mono uppercase tracking-wide drop-shadow-md text-center md:text-left whitespace-nowrap">
-                            {{ (user?.firstName + ' ' + user?.lastName) || 'Guerreiro Desconhecido' }}
-                        </h2>
-                    </div>
+        <div class="flex flex-col-reverse md:flex-row w-full items-center gap-2">
+            <div class="w-full bg-gradient-to-r from-neutral via-neutral/80 to-neutral border-2 border-neutral-content/30 border-b-base-100/50 rounded-md py-1 px-3 sm:px-4 shadow-md">
+                <span class="block text-[10px] sm:text-xs text-neutral-content/60 uppercase tracking-widest font-bold text-center md:text-left">Nome</span>
+                <div class="overflow-x-auto scrollbar-hide">
+                    <h2 class="min-h-5 text-sm sm:text-lg md:text-lg text-neutral-content font-mono uppercase tracking-wide drop-shadow-md text-center md:text-left whitespace-nowrap">
+                        {{ (user?.firstName + ' ' + user?.lastName) || 'Guerreiro Desconhecido' }}
+                    </h2>
                 </div>
-                
-                <button class=" btn btn-neutral font-normal flex flex-col tooltip tooltip-right gap-0"
-                        data-tip="Editar Perfil"
-                        (click)="onEditProfile()">
-                    <i class="ph-fill ph-pencil-simple"></i>
-                </button>
             </div>
+            
+            <button class=" btn btn-neutral font-normal flex flex-col tooltip tooltip-top gap-0"
+                    data-tip="Editar Perfil"
+                    (click)="onEditProfile()">
+                <i class="ph-fill ph-pencil-simple"></i>
+            </button>
         </div>
 
         <div class="relative flex items-center gap-2">
