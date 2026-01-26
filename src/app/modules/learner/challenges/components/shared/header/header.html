@@ -1,14 +1,14 @@
 <div class="flex flex-col md:flex-row md:items-stretch gap-3">
   @if (!loading) {
-  <div class="flex flex-row w-full gap-2">
+  <div class="flex flex-col md:flex-row w-full gap-2">
     <button
-      class="w-1xs h-auto p-3 btn btn-secondary md:w-40 flex flex-col items-center justify-center md:w-40 sm:text-3xl"
+      class="w-1xs h-auto p-3 btn btn-secondary lg:w-40 flex flex-row md:flex-col items-center justify-center md:text-lg lg:text-2xl"
       (click)="goBack()">
       <i class="ph ph-caret-left"></i>
       Voltar
     </button>
 
-    <header class="w-full text-sm bg-base-200 shadow-sm p-5 rounded-lg flex flex-col justify-center sm:text-md md:text-lg">
+    <header class="w-full text-sm text-justify bg-base-200 shadow-sm p-5 rounded-lg flex flex-col justify-center sm:text-md md:text-lg">
       @if (title) {
         <h1 [class]="titleClass">
           {{ title }}
