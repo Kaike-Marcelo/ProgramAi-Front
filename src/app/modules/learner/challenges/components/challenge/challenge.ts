@@ -8,6 +8,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { SnackbarService } from '../../../../../shared/services/snackbar.service';
 import { ModalComponent } from '../../../../../shared/components/simple-components/modal/modal.component';
 import { CHALLENGE_IMPORTS } from '../../helpers/imports';
+import { CodeNormalizerService } from '../../../../../shared/services/code-execution/code-normalizer.service';
 
 @Component({
   selector: 'app-challenge',
@@ -21,6 +22,7 @@ export class Challenge implements OnInit, OnDestroy {
   #actions = inject(ChallengesActions);
   #executionService = inject(CodeExecutionService);
   #languageService = inject(LanguageService);
+  #codeNormalizer = inject(CodeNormalizerService);
   #router = inject(Router);
   #route = inject(ActivatedRoute);
 
@@ -47,7 +49,9 @@ export class Challenge implements OnInit, OnDestroy {
     effect(() => {
       const savedCode = this.currentQuestion()?.attempt?.submittedCode;
       if (savedCode && !this.currentCode()) {
-        this.currentCode.set(savedCode);
+        const hasLineBreaks = savedCode.includes('\n');
+        const finalCode = hasLineBreaks ? savedCode : this.#codeNormalizer.normalizeMinifiedCode(savedCode);
+        this.currentCode.set(finalCode);
       }
     });
   }
