@@ -5,9 +5,9 @@ import { javascript } from '@codemirror/lang-javascript';
 import { python } from '@codemirror/lang-python';
 import { Diagnostic, linter, lintGutter } from '@codemirror/lint';
 import { Extension } from '@codemirror/state';
-import { LanguageDescription, syntaxTree } from '@codemirror/language';
+import { indentUnit, LanguageDescription, syntaxTree } from '@codemirror/language';
 import { search } from '@codemirror/search';
-import { defaultKeymap } from '@codemirror/commands';
+import { defaultKeymap, indentWithTab } from '@codemirror/commands';
 import { keymap } from '@codemirror/view';
 import { createTheme } from '@uiw/codemirror-themes';
 import { THEME_CODE_EDITOR_DEFAULT } from '../../styles/code-editor-styles';
@@ -121,7 +121,8 @@ export class CodeEditorService {
       this.basicLinter,
       lintGutter(),
       search(),
-      keymap.of(defaultKeymap),
+      indentUnit.of('    '),
+      keymap.of([...defaultKeymap, indentWithTab]),
     ];
   }
 

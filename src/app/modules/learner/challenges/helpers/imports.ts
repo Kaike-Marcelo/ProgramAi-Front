@@ -11,6 +11,7 @@ import { ConsoleOutput } from "../../../../shared/components/complex-components/
 import { ActionButtons } from "../components/challenge/components/action-buttons/action-buttons";
 import { ModalContent } from "../components/challenge/components/modal-content/modal-content";
 import { Header } from "../components/shared/header/header";
+import { MarkdownToHtmlPipe } from "../../../../shared/pipes/markdown-to-html-pipe";
 
 export const MODULES_IMPORTS = [
     ReactiveFormsModule,
@@ -37,5 +38,6 @@ export const CHALLENGE_IMPORTS = [
     ConsoleOutput,
     ModalComponent,
     ModalContent,
-    ActionButtons
+    ActionButtons,
+    MarkdownToHtmlPipe,
 ]

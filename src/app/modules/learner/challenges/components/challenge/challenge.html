@@ -1,6 +1,7 @@
 <section class="flex flex-col text-accent rounded-lg gap-3">
   <h3 class="text-base-100 font-semibold text-lg w-full bg-accent p-1 rounded-lg flex flex-col items-center"> MÓDULO: {{ language.toUpperCase() }} </h3>
-  <app-header [subtitle]="currentQuestion()?.text || ''"
+  <app-header [subtitleHtml]="(currentQuestion()?.text || '') | markdownToHtml"
+              [useHtmlSubtitle]="true"
               [titleClass]="'font-semibold'"
               [subtitleClass]="'text-base-content/70 font-normal'"
               (backClick)="goBack()" 
