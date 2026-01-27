@@ -6,7 +6,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './action-buttons.html',
 })
 export class ActionButtons {
-  @Input() language: string = '';
   @Input() code: string = '';
   @Input() loading: boolean = false;
   @Input() question: any;

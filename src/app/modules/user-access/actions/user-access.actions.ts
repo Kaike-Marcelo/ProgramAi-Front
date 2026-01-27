@@ -20,7 +20,6 @@ export class UserAccessActions {
             .pipe(
                 tap({
                     next: (res) => {
-                        this.#snackBarService.showSuccess(res.message);
                         this.#authService.setTokensLocalStorage(res.data);
                     },
                     error: (err: string[]) => {
@@ -40,7 +39,6 @@ export class UserAccessActions {
                 tap({
                     next: (response) => {
                         this.#authService.setTokensLocalStorage(response.data)
-                        this.#snackBarService.showSuccess(response.message);
                     },
                     error: (err: string[]) => {
                         this.#snackBarService.showError(err[0]);

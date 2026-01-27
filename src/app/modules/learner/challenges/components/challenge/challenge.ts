@@ -121,9 +121,18 @@ export class Challenge implements OnInit, OnDestroy {
     this.#executionService.clearLastExecution();
 
     if (!this.currentQuestion()?.attempt?.aiHint || !this.currentQuestion()?.endAt) {
+      this.modalTitle.set('Super Dica');
+      this.modalContent.set('Gerando dica...');
+      this.modalLoading.set(true);
+      this.contentModal.open();
+
       this.#actions.getHint({ questionId: this.questionId })
         .subscribe(() => {
-          this.onHintClick();
+          const hint = this.currentQuestion()?.attempt?.aiHint;
+          if (hint) {
+            this.modalContent.set(hint);
+            this.modalLoading.set(false);
+          }
         })
     }
   }

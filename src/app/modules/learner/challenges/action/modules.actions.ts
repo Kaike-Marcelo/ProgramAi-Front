@@ -16,7 +16,6 @@ export class ModulesActions {
             next: (response) => {
                 this.#store.setModules(response.data);
                 this.#store.setLoading(false);
-                this.#snackbarService.showSuccess(response.message);
             }, error: (err: string[]) => {
                 this.#snackbarService.showError(err[0]);
                 this.#store.setLoading(false);
@@ -30,7 +29,6 @@ export class ModulesActions {
             next: (response) => {
                 this.#store.setUserModules(response.data);
                 this.#store.setLoading(false);
-                // this.#snackbarService.showSuccess(response.message);
             }, error: (err: string[]) => {
                 this.#snackbarService.showError(err[0]);
                 this.#store.setLoading(false);
@@ -45,7 +43,6 @@ export class ModulesActions {
                 const currentModules = this.#store.snapshot.modules;
                 this.#store.setModules([...currentModules, response.data]);
                 this.#store.setLoading(false);
-                this.#snackbarService.showSuccess(response.message);
             }, error: (err: string[]) => {
                 this.#snackbarService.showError(err[0]);
                 this.#store.setLoading(false);
@@ -60,7 +57,6 @@ export class ModulesActions {
                 const currentModules = this.#store.snapshot.userModules;
                 this.#store.setUserModules([...currentModules, response.data]);
                 this.#store.setLoading(false);
-                this.#snackbarService.showSuccess(response.message);
             }, error: (err: string[]) => {
                 this.#snackbarService.showError(err[0] || 'Erro ao adicionar módulo ao usuário.');
                 this.#store.setLoading(false);

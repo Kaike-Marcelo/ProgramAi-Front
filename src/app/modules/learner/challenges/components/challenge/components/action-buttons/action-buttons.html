@@ -1,7 +1,7 @@
 <div class="flex flex-row h-[50px] gap-3">
     @if (!question?.endAt) {
     <button class="btn btn-primary h-full text-xs font-normal flex items-center flex-1 sm:text-lg"
-            [disabled]="!language || question?.endAt || loading"
+            [disabled]="question?.endAt || loading"
             (click)="hintClick.emit()">
         <i [class]=" !loading ? 'ph-fill ph-info text-sm sm:text-2xl' : 'ph ph-spinner ph-spin text-sm sm:text-2xl'"></i>
         {{ getHintButtonText() }}
@@ -15,7 +15,6 @@
     </button>
     } @else {
     <button class="btn btn-secondary h-full text-xs font-normal flex-1 sm:text-lg" 
-            [disabled]="!language"
             (click)="feedbackClick.emit()">
         <i [class]=" !loading ? 'ph-fill ph-chat-centered text-sm sm:text-2xl' : 'ph ph-spinner ph-spin text-sm sm:text-2xl'"></i>
         FEEDBACK

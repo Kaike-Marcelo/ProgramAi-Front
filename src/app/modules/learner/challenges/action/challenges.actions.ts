@@ -19,7 +19,6 @@ export class ChallengesActions {
             next: (response) => {
                 this.#store.setModuleDetails(response.data);
                 this.#store.setLoading(false);
-                this.#snackbarService.showSuccess(response.message);
             },
             error: (err: string[]) => {
                 this.#snackbarService.showError(err[0]);
@@ -54,7 +53,6 @@ export class ChallengesActions {
                             });
                         }
                         this.#store.setLoading(false);
-                        this.#snackbarService.showSuccess(response.message);
                     },
                     error: (err: string[]) => {
                         this.#snackbarService.showError(err[0]);
@@ -70,7 +68,6 @@ export class ChallengesActions {
             next: (response) => {
                 this.#store.setCurrentQuestion(response.data);
                 this.#store.setLoading(false);
-                this.#snackbarService.showSuccess(response.message);
             },
             error: (err: string[]) => {
                 this.#snackbarService.showError(err[0]);
@@ -106,7 +103,6 @@ export class ChallengesActions {
                         user.progress.totalScore += response.data.attempt.aiScore;
                         this.#authenticationService.updateUserLocalStorage(user);
                     }
-                    this.#snackbarService.showSuccess(response.message);
                 },
                 error: (err: string[]) => {
                     this.#snackbarService.showError(err[0]);
@@ -115,7 +111,6 @@ export class ChallengesActions {
     }
 
     getHint(request: RequestQuestionDetailed) {
-        this.#store.setLoading(true);
         return this.#challengesService.getHintQuestion(request).pipe(
             tap({
                 next: (response) => {
@@ -129,14 +124,10 @@ export class ChallengesActions {
                         };
                         this.#store.setCurrentQuestion(updatedQuestion);
                     }
-                    this.#snackbarService.showSuccess(response.message);
                 },
                 error: (err: string[]) => {
                     this.#snackbarService.showError(err[0]);
                 },
-                complete: () => {
-                    this.#store.setLoading(false);
-                }
             })
         );
     }

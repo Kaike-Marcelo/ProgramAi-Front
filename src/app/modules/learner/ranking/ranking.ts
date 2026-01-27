@@ -32,7 +32,6 @@ export class Ranking implements OnInit {
       next: (response) => {
         this.data = response.ranking.data;
         this.achievementsData = response.achievements.data;
-        this.#snackbarService.showSuccess(response.ranking.message)
       },
       error: (err: string[]) => {
         this.#snackbarService.showError(err[0]);

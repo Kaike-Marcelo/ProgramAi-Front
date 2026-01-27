@@ -15,7 +15,6 @@ export class DashboardActions {
         this.#dashboardService.getDashboardModuleSumary(request).subscribe({
             next: (response) => {
                 this.#store.setModuleSumary(response.data);
-                this.#snackbarService.showSuccess(response.message);
             }, error: (err: string[]) => {
                 this.#snackbarService.showError(err[0]);
                 this.#store.setLoading(false);
