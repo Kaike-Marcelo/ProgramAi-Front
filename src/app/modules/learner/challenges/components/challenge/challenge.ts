@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, effect, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChallengesStore } from '../../store/challengs.store';
 import { ChallengesActions } from '../../action/challenges.actions';
@@ -39,7 +39,11 @@ export class Challenge implements OnInit, OnDestroy {
   modalLoading = signal<boolean>(false);
 
   questionId: number = 0;
-  language: string = '';
+
+  language = computed(() => {
+    const moduleName = this.currentQuestion()?.moduleName;
+    return moduleName ? this.#languageService.getLanguageName(moduleName.toLowerCase()) : '';
+  });
 
   #snackbarService = inject(SnackbarService);
 
@@ -63,15 +67,6 @@ export class Challenge implements OnInit, OnDestroy {
         this.questionId = params['questionId'];
         this.#actions.loadQuestionDetailed({ questionId: this.questionId });
       });
-
-    this.#route.queryParams
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(queryParams => {
-        const moduleName = queryParams['moduleName'];
-        if (moduleName) {
-          this.language = this.#languageService.getLanguageName(moduleName.toLowerCase());
-        }
-      });
   }
 
   ngOnDestroy(): void {
@@ -89,7 +84,7 @@ export class Challenge implements OnInit, OnDestroy {
   }
 
   executeCode(): void {
-    this.#executionService.executeCode(this.language, this.currentCode());
+    this.#executionService.executeCode(this.language(), this.currentCode());
   }
 
   clearConsole(): void {

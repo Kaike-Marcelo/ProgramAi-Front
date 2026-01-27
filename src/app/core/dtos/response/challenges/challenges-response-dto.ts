@@ -8,6 +8,8 @@ export interface ModuleDetailsResponseDto {
 
 export interface ChallengeQuestionDetailsResponseDto {
     id: number,
+    moduleId: string,
+    moduleName: string,
     text: string,
     scoreBase: number,
     startAt: string,

@@ -23,6 +23,8 @@ export interface QuestionsTopic {
 
 export interface ChallengeQuestionDetails {
     id: number,
+    moduleId: string,
+    moduleName: string,
     text: string,
     scoreBase: number,
     startAt: string,

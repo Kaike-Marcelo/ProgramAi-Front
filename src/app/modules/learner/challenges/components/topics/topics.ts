@@ -70,12 +70,7 @@ export class Topics implements OnInit, OnDestroy {
   }
 
   onQuestionClick(questionId: number) {
-    const moduleName = this.moduleDetails()?.moduleName;
-    this.#router.navigate([`learner/modules/${this.moduleId}/challenge/${questionId}`],
-      {
-        queryParams: { moduleName }
-      }
-    );
+    this.#router.navigate([`learner/modules/${this.moduleId}/challenge/${questionId}`]);
   }
 
   getIconFromLanguage(name: string): string {
