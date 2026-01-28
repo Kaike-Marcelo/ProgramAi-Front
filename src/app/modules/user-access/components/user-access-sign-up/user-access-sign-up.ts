@@ -22,7 +22,7 @@ export class UserAccessSignUp {
   signUpForm = UserAccessFormsFactory.buildSignUpForm(this.#fb);
 
   hide = signal(true);
-  r_loading = signal(false)
+  r_loading = this.#actions.loading;
 
   @ViewChildren(InputComponent) appInputs!: QueryList<InputComponent>;
 
