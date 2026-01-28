@@ -10,6 +10,9 @@ export class NotificationActions {
     #notificationStore = inject(NotificationStore);
     #snackbarService = inject(SnackbarService);
 
+    private pollingInterval?: number;
+    private isPolling = false;
+
     loadAllNotifications(limit: number) {
         this.#notificationStore.setLoading(true);
         this.#notificationService.notificationList({ onlyActive: false, limit: limit })
@@ -75,5 +78,26 @@ export class NotificationActions {
                     this.#snackbarService.showError(error[0]);
                 }
             })
+    }
+
+    startPolling(limit: number, intervalMs: number = 30000): void {
+        this.stopPolling();
+
+        this.loadUnreadNotifications(limit);
+
+        this.isPolling = true;
+        this.pollingInterval = window.setInterval(() => {
+            if (this.isPolling) {
+                this.loadUnreadNotifications(limit);
+            }
+        }, intervalMs);
+    }
+
+    stopPolling(): void {
+        this.isPolling = false;
+        if (this.pollingInterval) {
+            clearInterval(this.pollingInterval);
+            this.pollingInterval = undefined;
+        }
     }
 }
