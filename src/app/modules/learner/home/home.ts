@@ -58,10 +58,7 @@ export class Home implements OnInit {
   navigateToChallenge(questionId: number) {
     const activeModule = this.activeModule();
     if (activeModule) {
-      this.#router.navigate([`learner/modules/${activeModule.moduleId}/challenge/${questionId}`],
-        {
-          queryParams: { moduleName: activeModule.moduleName }
-        }
+      this.#router.navigate([`learner/modules/${activeModule.moduleId}/challenge/${questionId}`]
       );
     }
   }
