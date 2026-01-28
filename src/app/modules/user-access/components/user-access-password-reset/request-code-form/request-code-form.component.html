@@ -1,0 +1,33 @@
+<form [formGroup]="requestCodeForm">
+  <div class="flex flex-row items-center space-x-2">
+    <app-input formControlName="email" 
+               label="E-mail" 
+               [requiredLabel]="true" 
+               placeholder="exemplo@email.com"
+               [errorMessage]="getErrorMessage('email')" />
+
+    <button class="btn btn-primary font-normal mt-2" 
+           (click)="onRequestCode()"
+            [disabled]="!requestCodeForm.valid || loading()">
+      @if (loading()) { <i class="loading loading-spinner loading-md"></i> }
+      Obter código
+    </button>
+  </div>
+</form>
+
+
+<app-modal  #requestCodeFormModal
+            title="Verifique o seu e-mail">
+
+  <div class="flex flex-col">
+    <p class="">Você está a um passo da conta criada com sucesso!</p>
+    <img src="images\email-confirmation.png" alt="Verifique seu e-mail" class="w-32 h-32 object-contain mx-auto mb-2" />
+    <p class="text-sm text-justify">
+      Para garantir que você informou o e-mail correto para a gente e poder utilizar a sua conta,
+      entre na sua caixa de entrada e busque o e-mail de verificação que te enviamos!
+      Nele tem o o código para confirmar que o e-mail está correto e te pertence.
+      <br><br>
+      Lembre-se de verificar também o Spam/Lixo eletrônico.
+    </p>
+  </div>
+</app-modal>

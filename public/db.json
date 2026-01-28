@@ -1,0 +1,9 @@
+{
+    "users": {
+        "id": 1,
+        "firstName": "Kaike Marcelo",
+        "lastName": "Silva",
+        "email": "kaike@email.com",
+        "password": "123456"
+    }
+}

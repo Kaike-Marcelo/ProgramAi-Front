@@ -1,0 +1,35 @@
+<div class="collapse collapse-arrow gap-5">
+
+  <input class="h-full" 
+         type="radio" 
+         [name]="'accordion-2'" 
+         (click)="onAccordionClick()"/>
+  <div class="collapse-title bg-primary text-base-100 text-sm rounded-lg sm:text-base md:text-lg cursor-pointer">
+    {{ data?.name || '--' }}
+  </div>
+
+  <div class="collapse-content flex flex-col h-sm text-primary gap-2">
+    @for (question of data?.questions; track $index) {
+    <div
+      class="flex flex-col justify-between items-start cursor-pointer bg-base-300 text-sm text-primary rounded-lg p-3 gap-2 hover:shadow-sm sm:flex-row sm:items-center sm:text-base"
+      (click)="onQuestionClick(question?.questionId || 0)">
+      
+      <p class="w-full sm:w-3/5"> {{ question.question }} </p>
+
+      <div class="flex flex-row w-full justify-between sm:w-2/5">
+        @if (question.endAt) {
+        <div class="flex flex-row items-center p-2 bg-primary rounded-lg gap-1">
+          <p class="text-base-100">Resolvido em</p>
+          <p class="text-secondary"> {{ question.startAt | durationFormat:question.endAt }} </p>
+          <i class="ph ph-timer text-secondary"></i>
+        </div>
+        }
+        <div class="flex flex-row gap-2 items-center ml-auto font-semibold text-neutral/50">
+          <p> {{ question.scoreBase }} pts </p>
+          <i [class]="'ph' + (question.endAt!=null ? '-fill text-secondary' : ' text-primary/50') +' ph-check-circle text-4xl'"></i>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

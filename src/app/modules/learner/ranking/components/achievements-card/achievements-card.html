@@ -1,0 +1,17 @@
+<div class="flex flex-row items-center text-lg w-full h-30 bg-base-200 text-primary rounded-lg p-5 shadow-lg">
+    <div class="flex flex-col w-2/5">
+        <p class="font-bold">Conquistas</p>
+        <p class="text-neutral-500"> {{data?.codenameName || "--"}} </p>
+        <app-stars [styleStars]="styles.stars" 
+                    [numberStarActivated]="data?.stars || 0" 
+                    [justify]="'justify-start'"/>
+    </div>
+
+    <div class="flex flex-row w-3/5 overflow-x-auto gap-6 px-2 rounded-lg">
+        @for(accomplishment of data?.accomplishments; track $index) {
+        <div class="flex flex-col flex-shrink-0 items-center justify-center cursor-pointer">
+            <img [src]="imgTrophy" alt="Troféu de conquistas" class="w-17 h-17" />
+            <p class="text-sm"> {{ accomplishment?.name || '--' }} </p>
+        </div>
+        }
+</div>

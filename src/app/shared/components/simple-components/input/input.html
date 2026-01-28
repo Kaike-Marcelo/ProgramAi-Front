@@ -1,0 +1,22 @@
+<div class="w-full">
+  <app-label  [label]="label"
+              [requiredLabel]="requiredLabel" 
+              [styleLabel]="{text: styleInput.label}"/>
+
+  <input [type]="type === 'password' && !showPassword ? 'password' : type"
+         [class]="'input ' + styleInput.background + ' ' + styleInput.text + ' border-0 validator w-full disabled:border-1 ' + styleInput.border + ' disabled:cursor-not-allowed'"
+         [placeholder]="placeholder" 
+         [value]="value" 
+         (input)="onInput($event)" 
+         (blur)="onBlur()" 
+         [disabled]="isDisabled"
+         required />
+
+  <p class="block text-xs mt-0 min-h-[1rem]">
+    @if (showError && errorMessage) {
+    <span [class]="styleInput.error">{{ errorMessage }}</span>
+    } @else {
+    <span class="invisible">placeholder</span>
+    }
+  </p>
+</div>

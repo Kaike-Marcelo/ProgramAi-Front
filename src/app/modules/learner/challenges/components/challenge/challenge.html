@@ -1,0 +1,89 @@
+<section class="flex flex-col text-accent rounded-lg gap-3">
+  <h3 class="text-base-100 font-semibold text-lg w-full bg-accent p-1 rounded-lg flex flex-col items-center"> MÓDULO: {{ language().toUpperCase() }} </h3>
+  <app-header [subtitleHtml]="(currentQuestion()?.text || '') | markdownToHtml"
+              [useHtmlSubtitle]="true"
+              [titleClass]="'font-semibold'"
+              [subtitleClass]="'text-base-content/70 font-normal'"
+              (backClick)="goBack()" 
+              [loading]="loading()"/>
+
+  @if (!loading()) {
+  <div class="flex flex-col gap-3">
+    <div class="flex-1 flex flex-col gap-3">
+      <app-code-editor 
+        [autoFocus]="true" 
+        [language]="language()" 
+        [code]="currentCode()"
+        (codeChange)="onCodeChanged($event)"
+        class="flex-1 min-h-[400px]" />
+      
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-2 text-sm">
+          @if (isExecuting()) {
+          <span class="flex items-center gap-2 text-warning">
+            <span class="loading loading-spinner loading-xs"></span>
+            Executando código...
+          </span>
+          }
+          @if (lastExecutionResult() && !isExecuting()) {
+          <span class="text-success">
+            ✓ Última execução concluída
+          </span>
+          }
+        </div>
+      </div>
+    </div>
+
+    @if (!currentQuestion()?.endAt) {
+    <div class="flex flex-row gap-2 h-[200px]">
+      <app-console-output 
+        [messages]="consoleMessages()"
+        [maxMessages]="100"
+        [autoScroll]="true"
+        (clear)="clearConsole()"
+        class="h-full w-full" />
+    
+      <button (click)="executeCode()"
+              [disabled]="isExecuting() || language() === '' 
+                          || loading()"
+              class="btn btn-secondary h-full sm:w-[200px] text-lg sm:text-[50px] rounded-lg flex flex-col items-center gap-0">
+            @if (!isExecuting()) {
+            <i class="ph-fill ph-play"></i>            
+            }
+            @if (isExecuting()) {
+            <span class="loading loading-spinner loading-xl"></span>
+            }
+            Play
+      </button>
+    </div>
+    }
+    <app-action-buttons [code]="currentCode()"
+                        [loading]="loading()"
+                        [question]="currentQuestion()"
+                        (hintClick)="onHintClick()"
+                        (submitClick)="submitCode()"
+                        (feedbackClick)="onFeedbackClick()" />
+
+    <app-modal #contentModal
+               [title]="modalTitle()"
+               [modalClass]="'bg-accent/90 text-base-100'"
+               [titleClass]="'text-secondary'">
+    
+    <app-modal-content [content]="modalContent()"
+                       [isLoading]="modalLoading()"
+                       [contentClass]="'text-base-100'"
+    />
+  </app-modal>
+  
+  </div>
+  } @else {
+  <div class="w-full text-sm bg-base-200 shadow-sm p-5 rounded-lg flex flex-col justify-center sm:text-md md:text-lg">
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+    <div class="w-1/1 h-4 bg-base-300 rounded"></div>
+  </div>
+  }
+</section>

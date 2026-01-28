@@ -1,0 +1,47 @@
+@if (deviceService.isMobile()) {
+
+<div class="dock bg-neutral text-neutral-content z-50 flex flex-wrap justify-around w-full">
+   
+   @for(item of menuItems; track $index) {
+   <button class="flex-1 min-w-0 p-2 text-center flex flex-col items-center justify-center"
+           [routerLink]="'/'+ [item.route]" 
+           routerLinkActive="dock-active"
+           [routerLinkActiveOptions]="{ exact: true }">
+      <i [class]="'ph ph-' + item.icon + ' text-lg'"></i>
+      <span class="text-xs mt-1 truncate px-1">{{ item.name }}</span>
+   </button>
+   }
+
+   <app-notification-badge class="flex-1 min-w-0 p-2" 
+                           [dropdownPosition]="'dropdown-end'"
+                           [dropdownDirection]="'dropdown-top'" />
+</div>
+
+} @else {
+<div class="flex min-h-screen bg-base-200">
+   <div class="z-40 h-screen w-20 lg:w-80 transition-all duration-300 bg-primary flex-none overflow-y-auto">
+      <ul class="menu text-base-content h-full p-4 lg:py-15 px-0 lg:px-0.5 flex flex-col">
+         
+         <div class="card bg-transparent rounded-box h-20 w-full flex items-center lg:items-start justify-center overflow-hidden ml-2">
+            <a class="flex items-center mb-5">
+               <img src="/images/logo/logo_04.png" class="h-12 me-3" alt="Logo" />
+               <img src="/images/logo/logo_06.png" class="h-12 me-3 hidden lg:block" alt="Logo" />
+            </a>
+         </div>
+
+         <div class="py-5 lg:py-10 w-full flex flex-col gap-5 lg:gap-0">
+            @for(item of menuItems; track $index) {
+               <app-menu-link-button [icon]="item.icon" 
+                                     [name]="item.name" 
+                                     (click)="onMenuClick(item)" />
+            }
+         </div>
+
+         <div class="divider"></div>
+         <app-menu-link-button [icon]="'ph-bold ph-sign-out'" 
+                               [name]="'Sair'" 
+                               (click)="logout()" />
+      </ul>
+   </div>
+</div>
+}

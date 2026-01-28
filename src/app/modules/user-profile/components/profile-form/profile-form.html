@@ -1,0 +1,59 @@
+<app-game-frame class="w-full flex flex-col items-center"> 
+    <form [formGroup]="profileForm" 
+          class="flex-1 w-full space-y-3 sm:space-y-4 min-w-0"> 
+        
+        <div class="relative w-full">
+            <div class="flex-1 flex flex-control gap-4 bg-gradient-to-r from-neutral via-neutral/80 to-neutral border-2 border-neutral-content/30 border-b-base-100/50 rounded-md py-1 px-3 sm:px-4 shadow-md overflow-x-auto">
+                <app-input [label]="'Primeiro Nome'"
+                            [requiredLabel]="true"
+                            formControlName="firstName"
+                            [placeholder]="'Digite seu primeiro nome'"
+                            [errorMessage]="getErrorMessage('firstName')" 
+                            [stylesInput]="styleInputName"
+                            class="flex-1" />
+
+                <app-input [label]="'Sobrenome'" 
+                           [requiredLabel]="true"
+                           [placeholder]="'Digite seu sobrenome'"
+                           formControlName="lastName"
+                           [errorMessage]="getErrorMessage('lastName')"
+                           [stylesInput]="styleInputName"
+                           class="flex-1" />
+            </div>
+        </div>
+
+        <div class="relative flex flex-row items-center gap-2">
+            <div class="w-8 h-8 sm:w-10 sm:h-10 border-2 border-info rounded flex items-center justify-center shadow-lg shrink-0 bg-info-content">
+                <i class="ph-fill ph-identification-badge text-lg sm:text-xl text-info"></i>
+            </div>
+            
+            <app-custom-select class="flex-1"
+                               [groups]="codenameGroups"
+                               [selectedId]="profileForm.get('codenameId')?.value"
+                               (selectionChange)="onCodenameChange($event)"
+                               placeholder="Selecione seu Codinome" />
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2">
+            <app-game-frame class="w-full" >
+                <button class="btn btn-primary w-full text-xs md:text-lg sm:text-lg" 
+                        (click)="onCancelEditProfile()"
+                        [disabled]="loading()"
+                        type="button">
+                    <i class="ph ph-pencil-simple-slash"></i>
+                    Cancelar Edição
+                </button>
+            </app-game-frame>
+
+            <app-game-frame class="w-full flex flex-col items-center justify-center"> 
+                <button class="btn btn-secondary w-full text-xs md:text-lg sm:text-lg" 
+                        (click)="onSaveProfile()"
+                        [disabled]="loading()"
+                        type="button">
+                    <i class="ph-fill ph-floppy-disk"></i>
+                    Salvar Alterações
+                </button>
+            </app-game-frame>
+        </div>
+    </form>
+</app-game-frame>

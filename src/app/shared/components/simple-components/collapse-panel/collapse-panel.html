@@ -1,0 +1,13 @@
+<div tabindex="0" [class]="'collapse collapse-arrow border-base-300 border ' + bgColor + ' ' + contentColor">
+    <div class="collapse-title pe-4 ps-2"> 
+        <div class="flex flex-row w-full p-2 rounded-lg items-center gap-2">
+            <i [class]="icon"></i>
+            <p class="line-clamp-1 text-xs md:text-base">{{ title }}</p>
+        </div> 
+    </div>
+
+    <div class="collapse-content text-xs md:text-base" [style.cursor]="id ? 'pointer' : 'default'"
+                                  (click)="id ? onClick() : null">
+        <p class="pt-2 border-t border-t-base-100">{{ content }}</p>
+    </div>
+</div>

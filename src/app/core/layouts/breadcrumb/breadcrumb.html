@@ -1,0 +1,20 @@
+@if (breadcrumbs().length > 0) {
+  <div class="breadcrumbs text-sm">
+    <ul>
+      @for (breadcrumb of breadcrumbs(); track $index; let last = $last) {
+        <li>
+          @if (!last) {
+            <a [routerLink]="breadcrumb.url" 
+               class="text-primary hover:text-accent transition-colors duration-200">
+              {{ breadcrumb.label }}
+            </a>
+          } @else {
+            <span class="font-semibold text-accent">{{ breadcrumb.label }}</span>
+          }
+        </li>
+      }
+    </ul>
+  </div>
+} @else {
+  <skeleton-breadcrumb />
+}

@@ -1,0 +1,33 @@
+<app-user-access-container>
+  <div>
+    <form [formGroup]="signInForm" class="mt-8 flex flex-col">
+      <app-input formControlName="email" label="E-mail" placeholder="exemplo@email.com"
+        [errorMessage]="getErrorMessage('email')" />
+
+      <app-input formControlName="password" label="Senha" placeholder="Digite sua senha"
+        [errorMessage]="getErrorMessage('password')" [type]="hide() ? 'password' : 'text'" />
+
+      <div class="w-full max-w-md mx-auto">
+        <div class="flex items-center justify-between gap-4">
+          <label class="label text-base-300 text-sm cursor-pointer">
+            <input type="checkbox"
+              class="checkbox border-neutral bg-transparent checked:border-secondary checked:bg-secondary checked:text-secondary" />
+            Manter Conectado
+          </label>
+
+          <button type="button" class="btn btn-ghost hover:bg-primary text-secondary font-normal ml-auto"
+            [routerLink]="'/password-reset'">Esqueci a senha</button>
+        </div>
+      </div>
+
+      <div class="my-2 mt-7">
+        <app-primary-button type="submit" [textButton]="'Entrar'" [r_loading]="loading" (click)="signIn()" />
+      </div>
+    </form>
+
+    <app-second-button [textButton]="'Ainda não sou aluno'" [routerLink]="'/sign-up'" />
+  </div>
+
+  <div class="divider divider-secondary text-secondary">ou</div>
+  <app-external-login />
+</app-user-access-container>

@@ -1,0 +1,48 @@
+<div class="flex flex-col h-full bg-neutral text-base-100 rounded-lg overflow-hidden">
+  
+  <div class="flex items-center justify-between px-4 py-3">
+    <div class="flex items-center gap-2">
+      <i class="ph ph-terminal-window text-secondary text-xl"></i>
+      <h3 class="text-sm font-mono font-normal text-base-300 md:text-lg">{{ title }}</h3>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <button (click)="clearConsole()"
+              class="px-3 py-1 text-sm hover:bg-primary/80 text-base-300 rounded transition-colors cursor-pointer disabled:cursor-not-allowed"
+              [disabled]="messages.length === 0"
+              [class.opacity-50]="messages.length === 0">
+        <i class="ph ph-broom"></i>
+        Limpar
+      </button>
+    </div>
+  </div>
+
+  <div class="console-content flex-1 overflow-y-auto p-4 font-mono text-sm">
+    @if(messages.length === 0) {
+    <div class="text-base-300/40 italic text-center py-8">
+      Nenhuma mensagem no console. Execute um código para ver a saída.
+    </div>
+    }
+    
+    @for (message of messages; track $index) {
+    <div class="flex items-start gap-3 text-xs mb-2">
+      <div class="flex-1">
+
+        <div class="flex items-baseline gap-2">
+          <span class="text-base-300/60">
+            [{{ formatTimestamp(message.timestamp) }}]
+          </span>
+          <span class=" px-2 py-0.5 rounded bg-gray-800 text-gray-400">
+            {{ message.type.toUpperCase() }}
+          </span>
+        </div>
+
+        <pre class="mt-1 whitespace-pre-wrap break-words {{ getMessageClass(message.type) }}">
+          {{ message.content }}
+        </pre>
+      </div>
+    </div>
+    }
+    </div>
+
+</div>

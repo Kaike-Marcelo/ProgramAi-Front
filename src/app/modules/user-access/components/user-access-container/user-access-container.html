@@ -1,0 +1,21 @@
+<div class="flex h-screen w-screen min-w-0 max-w-full bg-primary">
+  @if(!deviceService.isMobile() && imagePosition === 'left') {
+  <div class="relative w-full h-screen overflow-hidden">
+    <div class="absolute inset-0 bg-[rgba(10,73,145,0.5)] pointer-events-none"></div>
+    <img [src]="currentImage" alt="Login image" class="w-full h-full object-cover" />
+  </div>
+  }
+  <div class="max-w-[390px] w-full p-6 m-auto flex flex-col overflow-auto max-h-screen">
+    <div class="w-full flex justify-center mb-15">
+      <img src="images/logo/logo_02.png" alt="Logo">
+    </div>
+    <ng-content></ng-content>
+  </div>
+
+  @if(!deviceService.isMobile() && imagePosition === 'right') {
+  <div class="relative w-full h-screen overflow-hidden">
+    <div class="absolute inset-0 bg-[rgba(10,73,145,0.5)] pointer-events-none"></div>
+    <img [src]="currentImage" alt="Login image" class="w-full h-full object-cover" />
+  </div>
+  }
+</div>

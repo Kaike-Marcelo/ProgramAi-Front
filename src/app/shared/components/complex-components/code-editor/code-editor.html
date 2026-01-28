@@ -1,0 +1,8 @@
+<code-editor [(ngModel)]="code"
+             (ngModelChange)="codeChange.emit($event)"   
+             [extensions]="extensions"
+             [language]="language"
+             [languages]="languageDescriptions"
+             [readonly]="readonly"
+             [autoFocus]="autoFocus"
+             class="h-[400px] text-sm sm:text-lg rounded-lg overflow-hidden"/>
