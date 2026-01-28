@@ -92,22 +92,23 @@ export class ChallengesActions {
 
     submitQuestionAnswer(request: RequestSubmitQuestion) {
         this.#store.setLoading(true);
-        this.#challengesService.submitQuestionAnswer(request)
-            .pipe(finalize(() => { this.#store.setLoading(false); }))
-            .subscribe({
-                next: (response) => {
-                    this.#store.setCurrentQuestion(response.data);
+        return this.#challengesService.submitQuestionAnswer(request)
+            .pipe(
+                finalize(() => { this.#store.setLoading(false); }),
+                tap({
+                    next: (response) => {
+                        this.#store.setCurrentQuestion(response.data);
 
-                    const user = this.#authenticationService.getLoggedInUser();
-                    if (user) {
-                        user.progress.totalScore += response.data.attempt.aiScore;
-                        this.#authenticationService.updateUserLocalStorage(user);
+                        const user = this.#authenticationService.getLoggedInUser();
+                        if (user) {
+                            user.progress.totalScore += response.data.attempt.aiScore;
+                            this.#authenticationService.updateUserLocalStorage(user);
+                        }
+                    },
+                    error: (err: string[]) => {
+                        this.#snackbarService.showError(err[0]);
                     }
-                },
-                error: (err: string[]) => {
-                    this.#snackbarService.showError(err[0]);
-                }
-            })
+                }));
     }
 
     getHint(request: RequestQuestionDetailed) {

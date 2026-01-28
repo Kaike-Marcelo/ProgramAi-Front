@@ -154,6 +154,12 @@ export class Challenge implements OnInit, OnDestroy {
     this.#actions.submitQuestionAnswer({
       questionId: this.questionId,
       code: codeToSubmit
+    }).subscribe({
+      next: () => {
+        setTimeout(() => {
+          this.onFeedbackClick();
+        }, 500);
+      }
     });
   }
 }
